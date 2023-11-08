@@ -2496,7 +2496,7 @@ ul.breadcrumb li + li:last-child {
 }
 stylus,
 body {
-  background-image: url("/images/Background.jpg");
+  background-image: url("/uploads/Background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 64%;
