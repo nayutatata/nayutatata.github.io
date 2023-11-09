@@ -73,8 +73,15 @@
 
 <p>再进行检查。</p>
 ]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
       <tags>
-        <tag>教程 博客 github hexo windows</tag>
+        <tag>教程</tag>
+        <tag>博客</tag>
+        <tag>github</tag>
+        <tag>hexo</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
 </search>
