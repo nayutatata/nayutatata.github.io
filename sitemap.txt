@@ -1,7 +1,7 @@
 http://example.com/schedule/index.html
+http://example.com/categories/index.html
 http://example.com/2023/11/09/windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%9F%BA%E4%BA%8Egithub%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/
 http://example.com/tags/index.html
-http://example.com/categories/index.html
 http://example.com/about/index.html
 http://example.com/
 http://example.com/tags/%E6%95%99%E7%A8%8B/
