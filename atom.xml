@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-09T09:25:20.086Z</updated>
+  <updated>2023-11-10T04:22:03.945Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【过程记录】EXCEL十字定位线</title>
+    <link href="http://example.com/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/"/>
+    <id>http://example.com/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/</id>
+    <published>2023-11-10T04:10:52.000Z</published>
+    <updated>2023-11-10T04:22:03.945Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;网络插件&quot;&gt;&lt;a href=&quot;#网络插件&quot; class=&quot;headerlink&quot; title=&quot;网络插件&quot;&gt;&lt;/a&gt;网络插件&lt;/h1&gt;&lt;p&gt;易用宝：&lt;a href=&quot;http://yyb.excelhome.net/download/&quot;&gt;最新版下载 | Excel</summary>
+      
+    
+    
+    
+    <category term="记录" scheme="http://example.com/categories/%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="excel" scheme="http://example.com/tags/excel/"/>
+    
+  </entry>
   
   <entry>
     <title>【日常】2023-11-4</title>

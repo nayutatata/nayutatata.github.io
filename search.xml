@@ -118,4 +118,23 @@
         <tag>情感</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【过程记录】EXCEL十字定位线</title>
+    <url>/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/</url>
+    <content><![CDATA[<h1 id="网络插件"><a href="#网络插件" class="headerlink" title="网络插件"></a>网络插件</h1><p>易用宝：<a href="http://yyb.excelhome.net/download/">最新版下载 | Excel易用宝 (excelhome.net)</a></p>
+<p>易用宝功能部分需要微信扫码，由于只需要十字定位功能，所以考虑自行实现。</p>
+<h1 id="自行实现"><a href="#自行实现" class="headerlink" title="自行实现"></a>自行实现</h1><h2 id="条件格式"><a href="#条件格式" class="headerlink" title="条件格式"></a>条件格式</h2><p><code>=(CELL(&quot;row&quot;)==ROW()+(CELL(&quot;col&quot;)==COLUMN()))</code></p>
+<p><code>=(CELL(&quot;row&quot;)==ROW()*(CELL(&quot;col&quot;)==COLUMN()))</code></p>
+<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Private Sub Worksheet_SelectionChange(ByVal Target As Range)</span><br><span class="line">    Calculate</span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h2><p>条件格式的透明度</p>
+<p>条件格式如何形成全局文件</p>
+]]></content>
+      <categories>
+        <category>记录</category>
+      </categories>
+      <tags>
+        <tag>excel</tag>
+      </tags>
+  </entry>
 </search>
