@@ -15,9 +15,9 @@
 </ol>
 </li>
 </ol>
-<p><img src="ADS_res/1/1.png" alt=""></p>
+<p><img src="https://ooo.0x0.ooo/2023/11/16/OefyDN.png" alt="OefyDN.png"></p>
 <p>如图所示，传统的方法直接忽略了转向灯的影响。而ViP3D模型的prediction模块可以通过query捕捉到转向灯的改变传递的信息。</p>
-<h2 id="ViP3D模型"><a href="#ViP3D模型" class="headerlink" title="ViP3D模型"></a>ViP3D模型</h2><h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p><img src="ADS_res/1/2.png" alt=""></p>
+<h2 id="ViP3D模型"><a href="#ViP3D模型" class="headerlink" title="ViP3D模型"></a>ViP3D模型</h2><h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p><img src="https://ooo.0x0.ooo/2023/11/16/OefvnS.png" alt="OefvnS.png"></p>
 <p>对于每个个时间点，流程如下：</p>
 <ol>
 <li>获取输入，输入为多张不同角度的图片。</li>
@@ -65,13 +65,10 @@
 <p>本文并没有详述具体的方法。</p>
 <h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>loss为前面agent query supervision的loss和轨迹预测的loss之和</p>
 <p>$L=L_{cls}+L_{coord}+L_{traj}$</p>
-<p><img src="ADS_res/1/3.png" alt=""></p>
+<p><img src="https://ooo.0x0.ooo/2023/11/16/OefrAs.png" alt="OefrAs.png"></p>
 <p>对于$L_{traj}$，作者说在Appendix里，但我没找到附录。</p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><img src="ADS_res/1/4.png" alt=""></p>
-<p><img src="ADS_res/1/5.png" alt=""></p>
-<p><img src="ADS_res/1/6.png" alt=""></p>
-<p><img src="ADS_res/1/7.png" alt="7"></p>
-<h2 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h2><p><img src="ADS_res/1/8.png" alt=""></p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><img src="https://ooo.0x0.ooo/2023/11/16/OefpkL.png" alt="OefpkL.png"><br><img src="https://ooo.0x0.ooo/2023/11/16/Oefg6C.png" alt="Oefg6C.png"><br><img src="https://ooo.0x0.ooo/2023/11/16/OefKwa.png" alt="OefKwa.png"><br><img src="https://ooo.0x0.ooo/2023/11/16/OefASK.png" alt="OefASK.png"></p>
+<h2 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h2><p><img src="https://ooo.0x0.ooo/2023/11/16/OefJpi.png" alt="OefJpi.png"></p>
 ]]></content>
       <categories>
         <category>论文概览</category>
