@@ -174,4 +174,85 @@
         <tag>情感</tag>
       </tags>
   </entry>
+  <entry>
+    <title>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</title>
+    <url>/2023/11/16/ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries/</url>
+    <content><![CDATA[<h1 id="ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries"><a href="#ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries" class="headerlink" title="ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries"></a>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><ol>
+<li>传统的perception与prediction是分开建模的，导致：<ol>
+<li>两个模块只能通过接口通信，通信的信息十分有限，一般是geometric和semantic特征，比如historical agent trajectories, agent types and agent sizes. 因此许多明显的、预示着主题接下来的行动的信息没有被显式地建模，比如刹车灯亮、车头的偏移等。</li>
+<li>prediction模块作为perception模块的downstream，要承担perception模块产生的错误带来的影响，并且这种错误难以消解、会逐渐积累。</li>
+</ol>
+</li>
+<li>LiDAR-based trajectory prediction存在两大问题：<ol>
+<li>无法完全利用camera提供的细粒度信息</li>
+<li>模型使用feature map作为帧的中间表示，因此会在non-differentiable operations上受到阻碍，例如object decoding中的non-maximum suppression.</li>
+</ol>
+</li>
+</ol>
+<p><img src="/ADS_res/1/1.png"></p>
+<p>如图所示，传统的方法直接忽略了转向灯的影响。而ViP3D模型的prediction模块可以通过query捕捉到转向灯的改变传递的信息。</p>
+<h2 id="ViP3D模型"><a href="#ViP3D模型" class="headerlink" title="ViP3D模型"></a>ViP3D模型</h2><h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p><img src="/ADS_res/1/2.png"></p>
+<p>对于每个个时间点，流程如下：</p>
+<ol>
+<li>获取输入，输入为多张不同角度的图片。</li>
+<li>通过DETR3D模型来从multi-view images 获得2D image features.</li>
+<li>通过Temporal Feature Aggregation对agent queries进行管理</li>
+<li>通过Query-based Prediction输出预测结果</li>
+</ol>
+<h3 id="Temporal-Feature-Aggregation"><a href="#Temporal-Feature-Aggregation" class="headerlink" title="Temporal Feature Aggregation"></a>Temporal Feature Aggregation</h3><p>其实就是如何在时间线上管理queries</p>
+<p>对于每个query，它要么就和一个agent相关联，要么就为空。</p>
+<h4 id="Query-Feature-Update"><a href="#Query-Feature-Update" class="headerlink" title="Query Feature Update"></a>Query Feature Update</h4><p>可以利用cross-attention来进行更新：</p>
+<p>$Q$是原来的queries集合，$K_L$和$V_L$分别是features序列的key和value.</p>
+<p>那么更新后的$Q_{new}&#x3D;FFN(softmax(\frac{QK_L^T}{\sqrt d_k})V_L+Q)$</p>
+<h4 id="Query-Feature-Supervision"><a href="#Query-Feature-Supervision" class="headerlink" title="Query Feature Supervision"></a>Query Feature Supervision</h4><p>描述了每个agent query在时间线上的变动，即如何利用t-1时刻的query来更新t时刻的query.</p>
+<p>就如同我们之前所说，query有两类：</p>
+<ol>
+<li>已经跟一个agent相关联。</li>
+<li>空。</li>
+</ol>
+<p>那么更新的策略就有两种：</p>
+<ol>
+<li><p>若当前的query在t-1时刻已经matched：</p>
+<ol>
+<li>若agent还在，那么$q_t&#x3D;q_{t-1}$</li>
+<li>否则$q_t &#x3D;EMPTY$</li>
+</ol>
+</li>
+<li><p>若当前query在t-1时刻没有matched：</p>
+<p>直接将所有新出现的agent和该query进行匹配。</p>
+</li>
+</ol>
+<h2 id="Query-based-Prediction"><a href="#Query-based-Prediction" class="headerlink" title="Query-based Prediction"></a>Query-based Prediction</h2><p>Outline：</p>
+<ol>
+<li>输入为agent queries.</li>
+<li>包含Map encoder来抓取map features</li>
+<li>包含trajectory decoder来输出预测的轨迹</li>
+</ol>
+<h3 id="Map-Encoding"><a href="#Map-Encoding" class="headerlink" title="Map Encoding"></a>Map Encoding</h3><p>利用VectorNet进行encode，得到结果Map features，记为$M$</p>
+<p>则之后agent query和map进行交互时则依赖于$Attention(Q,M)$</p>
+<h3 id="Trajectory-Decoding"><a href="#Trajectory-Decoding" class="headerlink" title="Trajectory Decoding"></a>Trajectory Decoding</h3><p>Outline:</p>
+<ol>
+<li>输入为agent queries.</li>
+<li>输出为对于每个agent的K条可能的轨迹。</li>
+</ol>
+<p>该模型兼容了多种trajectory decoding方法，如regression-based method, goal-based method, heatmap-based method.</p>
+<p>本文并没有详述具体的方法。</p>
+<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>loss为前面agent query supervision的loss和轨迹预测的loss之和</p>
+<p>$L&#x3D;L_{cls}+L_{coord}+L_{traj}$</p>
+<p><img src="/ADS_res/1/3.png"></p>
+<p>对于$L_{traj}$，作者说在Appendix里，但我没找到附录。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><img src="/ADS_res/1/4.png"></p>
+<p><img src="/ADS_res/1/5.png"></p>
+<p><img src="/ADS_res/1/6.png"></p>
+<p><img src="/ADS_res/1/7.png" alt="7"></p>
+<h2 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h2><p><img src="/ADS_res/1/8.png"></p>
+]]></content>
+      <categories>
+        <category>论文概览</category>
+      </categories>
+      <tags>
+        <tag>ADS</tag>
+        <tag>论文概览</tag>
+      </tags>
+  </entry>
 </search>
