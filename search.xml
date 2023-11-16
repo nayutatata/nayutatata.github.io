@@ -1,76 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</title>
+    <url>/2023/11/16/ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries/</url>
+    <content><![CDATA[<h1 id="ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries"><a href="#ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries" class="headerlink" title="ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries"></a>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><ol>
+<li>传统的perception与prediction是分开建模的，导致：<ol>
+<li>两个模块只能通过接口通信，通信的信息十分有限，一般是geometric和semantic特征，比如historical agent trajectories, agent types and agent sizes. 因此许多明显的、预示着主题接下来的行动的信息没有被显式地建模，比如刹车灯亮、车头的偏移等。</li>
+<li>prediction模块作为perception模块的downstream，要承担perception模块产生的错误带来的影响，并且这种错误难以消解、会逐渐积累。</li>
+</ol>
+</li>
+<li>LiDAR-based trajectory prediction存在两大问题：<ol>
+<li>无法完全利用camera提供的细粒度信息</li>
+<li>模型使用feature map作为帧的中间表示，因此会在non-differentiable operations上受到阻碍，例如object decoding中的non-maximum suppression.</li>
+</ol>
+</li>
+</ol>
+<p><img src="ADS_res/1/1.png" alt=""></p>
+<p>如图所示，传统的方法直接忽略了转向灯的影响。而ViP3D模型的prediction模块可以通过query捕捉到转向灯的改变传递的信息。</p>
+<h2 id="ViP3D模型"><a href="#ViP3D模型" class="headerlink" title="ViP3D模型"></a>ViP3D模型</h2><h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p><img src="ADS_res/1/2.png" alt=""></p>
+<p>对于每个个时间点，流程如下：</p>
+<ol>
+<li>获取输入，输入为多张不同角度的图片。</li>
+<li>通过DETR3D模型来从multi-view images 获得2D image features.</li>
+<li>通过Temporal Feature Aggregation对agent queries进行管理</li>
+<li>通过Query-based Prediction输出预测结果</li>
+</ol>
+<h3 id="Temporal-Feature-Aggregation"><a href="#Temporal-Feature-Aggregation" class="headerlink" title="Temporal Feature Aggregation"></a>Temporal Feature Aggregation</h3><p>其实就是如何在时间线上管理queries</p>
+<p>对于每个query，它要么就和一个agent相关联，要么就为空。</p>
+<h4 id="Query-Feature-Update"><a href="#Query-Feature-Update" class="headerlink" title="Query Feature Update"></a>Query Feature Update</h4><p>可以利用cross-attention来进行更新：</p>
+<p>$Q$是原来的queries集合，$K_L$和$V_L$分别是features序列的key和value.</p>
+<p>那么更新后的$Q_{new}=FFN(softmax(\frac{QK_L^T}{\sqrt d_k})V_L+Q)$</p>
+<h4 id="Query-Feature-Supervision"><a href="#Query-Feature-Supervision" class="headerlink" title="Query Feature Supervision"></a>Query Feature Supervision</h4><p>描述了每个agent query在时间线上的变动，即如何利用t-1时刻的query来更新t时刻的query.</p>
+<p>就如同我们之前所说，query有两类：</p>
+<ol>
+<li>已经跟一个agent相关联。</li>
+<li>空。</li>
+</ol>
+<p>那么更新的策略就有两种：</p>
+<ol>
+<li><p>若当前的query在t-1时刻已经matched：</p>
+<ol>
+<li>若agent还在，那么$q_t=q_{t-1}$</li>
+<li>否则$q_t =EMPTY$</li>
+</ol>
+</li>
+<li><p>若当前query在t-1时刻没有matched：</p>
+<p>直接将所有新出现的agent和该query进行匹配。</p>
+</li>
+</ol>
+<h2 id="Query-based-Prediction"><a href="#Query-based-Prediction" class="headerlink" title="Query-based Prediction"></a>Query-based Prediction</h2><p>Outline：</p>
+<ol>
+<li>输入为agent queries.</li>
+<li>包含Map encoder来抓取map features</li>
+<li>包含trajectory decoder来输出预测的轨迹</li>
+</ol>
+<h3 id="Map-Encoding"><a href="#Map-Encoding" class="headerlink" title="Map Encoding"></a>Map Encoding</h3><p>利用VectorNet进行encode，得到结果Map features，记为$M$</p>
+<p>则之后agent query和map进行交互时则依赖于$Attention(Q,M)$</p>
+<h3 id="Trajectory-Decoding"><a href="#Trajectory-Decoding" class="headerlink" title="Trajectory Decoding"></a>Trajectory Decoding</h3><p>Outline:</p>
+<ol>
+<li>输入为agent queries.</li>
+<li>输出为对于每个agent的K条可能的轨迹。</li>
+</ol>
+<p>该模型兼容了多种trajectory decoding方法，如regression-based method, goal-based method, heatmap-based method.</p>
+<p>本文并没有详述具体的方法。</p>
+<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>loss为前面agent query supervision的loss和轨迹预测的loss之和</p>
+<p>$L=L_{cls}+L_{coord}+L_{traj}$</p>
+<p><img src="ADS_res/1/3.png" alt=""></p>
+<p>对于$L_{traj}$，作者说在Appendix里，但我没找到附录。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><img src="ADS_res/1/4.png" alt=""></p>
+<p><img src="ADS_res/1/5.png" alt=""></p>
+<p><img src="ADS_res/1/6.png" alt=""></p>
+<p><img src="ADS_res/1/7.png" alt="7"></p>
+<h2 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h2><p><img src="ADS_res/1/8.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>论文概览</category>
+      </categories>
+      <tags>
+        <tag>ADS</tag>
+        <tag>论文概览</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>windows操作系统下基于github和hexo搭建个人博客</title>
     <url>/2023/11/09/windows%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E4%B8%8B%E5%9F%BA%E4%BA%8Egithub%E5%92%8Chexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="依赖下载"><a href="#依赖下载" class="headerlink" title="依赖下载"></a>依赖下载</h1><h2 id="git下载"><a href="#git下载" class="headerlink" title="git下载"></a>git下载</h2><p>从阿里镜像下载即可<a href="https://registry.npmmirror.com/binary.html?path=git-for-windows/">CNPM Binaries Mirror (npmmirror.com)</a></p>
 <p>下载后需要通过以下命令设置用户名和邮箱：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global user.name &quot;your_name&quot;</span><br><span class="line">git config --global user.email &quot;your_email&quot;</span><br></pre></td></tr></table></figure>
-
 <p>为了防止执行<code>git push</code>和<code>git clone</code>等命令时出现网络速度较慢的问题，建议设置代理。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git config --global http.proxy &#x27;xxx.xxx.xxx.xxx : xxxx&#x27;</span><br><span class="line">git config --global https.proxy &#x27;xxx.xxx.xxx.xxx : xxxx&#x27;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p>从官网直接下载最新版本即可<a href="https://link.zhihu.com/?target=https://nodejs.org/en/">https://link.zhihu.com/?target=https%3A//nodejs.org/en/</a></p>
+<h2 id="Node-js"><a href="#Node-js" class="headerlink" title="Node.js"></a>Node.js</h2><p>从官网直接下载最新版本即可<a href="https://link.zhihu.com/?target=https%3A//nodejs.org/en/">https://link.zhihu.com/?target=https%3A//nodejs.org/en/</a></p>
 <p>安装时记得勾选<code>Add to Path</code>将其加入环境变量中。</p>
 <p><strong>检查是否安装成功</strong>：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-
 <p>正常情况下会显示Node.js的版本号</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm -v</span><br></pre></td></tr></table></figure>
-
 <p>正常情况下会显示npm的版本号</p>
 <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="安装和初始化"><a href="#安装和初始化" class="headerlink" title="安装和初始化"></a>安装和初始化</h3><p><strong>若无特殊说明，以下命令均在git bash中输入</strong></p>
 <p>输入：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install -g hexo-cli <span class="comment"># 安装hexo</span></span><br></pre></td></tr></table></figure>
-
 <p>安装之后，找一个空文件夹，比如<code>D:\Blog</code>，然后cd到该目录下，输入：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
 <p>还需要安装一个插件：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
-
 <p>这个插件用于将<code>Blogs\public</code>文件夹的内容上传至github</p>
 <h1 id="搭建博客"><a href="#搭建博客" class="headerlink" title="搭建博客"></a>搭建博客</h1><h2 id="在github上新建仓库"><a href="#在github上新建仓库" class="headerlink" title="在github上新建仓库"></a>在github上新建仓库</h2><p>新建一个名为<code>your_name.github.io</code>的仓库，这个仓库用于存放博客所需的静态文件。</p>
 <h2 id="配置SSH-key"><a href="#配置SSH-key" class="headerlink" title="配置SSH key"></a>配置SSH key</h2><p>在git bash中输入：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh-keygen -t -rsa -C <span class="string">&quot;your_email&quot;</span> <span class="comment"># 指的是github的注册邮箱</span></span><br></pre></td></tr></table></figure>
-
 <p>然后直接三个回车（无需设置密码）</p>
 <p>打开<code>C:\Users\username\.ssh\id_rsa.pub</code>文件，复制内容。</p>
-<p>打开<a href="https://github.com/settings/ssh/new%EF%BC%8C%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAssh">https://github.com/settings/ssh/new，创建一个ssh</a> key，将<code>id_rsa.pub</code>的内容粘贴到Key的框框下即可。</p>
+<p>打开<a href="https://github.com/settings/ssh/new，创建一个ssh">https://github.com/settings/ssh/new，创建一个ssh</a> key，将<code>id_rsa.pub</code>的内容粘贴到Key的框框下即可。</p>
 <p><strong>检查是否创建成功：</strong></p>
 <p>在git bash中输入：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
-
 <p>连接成功后会出现以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Hi your_name! You&#x27;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
-
 <h2 id="Hexo部分用法"><a href="#Hexo部分用法" class="headerlink" title="Hexo部分用法"></a>Hexo部分用法</h2><h3 id="生成静态文件"><a href="#生成静态文件" class="headerlink" title="生成静态文件"></a>生成静态文件</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo g</span><br></pre></td></tr></table></figure>
-
 <p>这个命令将会在<code>public</code>文件夹中生成相关的静态<code>html</code>文件。</p>
 <h3 id="本地预览"><a href="#本地预览" class="headerlink" title="本地预览"></a>本地预览</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">hexo s</span><br></pre></td></tr></table></figure>
-
 <p>这个会提供实时的预览服务，也就意味着在更新某个配置文件后，你不需要重新输入该命令即可在<code>http://localhost:4000</code>查看网页内容。</p>
 <p><strong>可能会出现以下warning：</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">warning: LF will be replaced by CRLF in</span><br></pre></td></tr></table></figure>
-
 <p>可以输入以下内容解决：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global core.safecrlf <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="部署至github"><a href="#部署至github" class="headerlink" title="部署至github"></a>部署至github</h3><p>在此之前，需要把根目录下的配置文件<code>_config.yml</code>中的<code>deploy</code>部分修改成：</p>
 <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">git@github.com:xxxxxx/xxxxxxx.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
 <p>其中<code>repo</code>可以在仓库的<code>code</code>中获取</p>
 <p>在git bash中输入：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
 <p>即可完成部署</p>
 <p><strong>检查是否部署成功：</strong></p>
 <p>打开<code>https://your_name.github.io</code>，如果内容和本地浏览内容一致，则部署成功。</p>
 <p>如果不一致，可以考虑在本地输入：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo g</span><br><span class="line">hexo d</span><br></pre></td></tr></table></figure>
-
 <p>再进行检查。</p>
 ]]></content>
       <categories>
@@ -88,27 +150,27 @@
     <title>【日常】2023-11-4</title>
     <url>/2023/11/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-4/</url>
     <content><![CDATA[<p><strong>以流水账的形式记录一些故事</strong></p>
-<p>​	很早以前，和H约好去迪士尼，时间定在了11月5号。</p>
-<p>​	11月4号，我到了车站，在很远的地方就看到了H——那个像小孩子一样一只手扶着行李箱，一只手叉着腰的女孩。她时不时晃晃头，尝试着捕捉她一直等待着的那个人。可惜，她的目光并没我想象中的锐利，她并没能发现我，因此我也就无从施展我从别人身上学来的小技巧——看到对方之后假装扫视一下对方周围的环境，最后目光聚焦在她身上对着她笑笑。要是能用上就好了，没准她会很开心。</p>
-<p>​	后来我们一同去逛了世界商场，买了些东西。回到酒店时已经不早了。H的妈妈给她打了一个不短的电话，而我则在床上睡着了。醒来时，她向我说她们对话的内容，详情我已经忘却大半，只记得听完她说的话之后我心里空落落的。</p>
-<p>​	后来，我们褪去衣物躺在床上，发生了一段令人难过的对话。</p>
-<p>​	H对我说，其实在恋爱中女生和男生很不一样：女生往往只需要得到男生本人的认可，而男生要面对的却不止女生一个人，还有她的家人、闺蜜、许许多多的朋友。她又开口，说如果她闺蜜的男友做出了什么让她闺蜜伤心的事情，不管这件事是对还是错，她都会帮着她闺蜜骂男友的。</p>
-<p>​	其实这只是立场的作用罢了，人总会本能地支持自己亲近的人。我不置可否，毕竟是我我也会这么做。只不过额外的，我可能更倾向于事物本身的对错——当然在此之前需要安抚“受害者”的情绪罢了。不过在那时那刻我切身听到那些话时，我总觉得被子外面的冷气格外肆虐，仿佛又回到了多年前的那个冬天。</p>
-<p>​	“我不会拒绝的父母的要求的。平时他们对我的决定都不怎么过问，事事都听我的。但等到他们真正下了通牒，我就清楚这些是命令——他们叫我不要怎么样，我不会想着拒绝。所以说这对你来说很不公平，因为你能决定你自己的事情，但我不能。”</p>
-<p>​	对啊，的确很不公平，那又如何呢。我睁开眼，看着周围暗下去的一切。民宿的窗帘遮光效果并不好，以至于我还能看到轻松跃过窗帘的朦胧的月光。或许是这微弱光芒引发了我的幻觉，我觉得身前立着几个高大的影子，七嘴八舌地讨论我的质量，以决定我的价格。</p>
-<p>​	“或许男生确实容易沦为被选择被比较的那一方吧，”我鬼使神差地说，可能是因为刚刚的幻觉吧，我有一种被摆在天平上比较的感觉，“我们因为缘分和喜欢与自己的恋人在一起，然后却要经过恋人身边的无数人的考验。最后在一层一层的比较中，感情的决定权早就不在相恋的人彼此手上了。”</p>
-<p>​	“他们叫我不要怎么样，我没办法拒绝”在我脑海中横冲直撞，让我感到有些晕眩，让我感到有些委屈。我压住自己的情绪，缓缓开口：“如果有一天，因为你身边的人，我们分开了……”我顿了顿，尝试着把眼泪困在眼眶里，随后说：“我也可以接受。”说来也是，我除了接受真的有其他选择吗？</p>
-<p>​	我转过头去，好让自己的情绪更稳定些。只是出乎我意料的，她哭得很厉害——她身体不停颤抖，下巴不受控制地下移，好让她撕心裂肺的哭声顺利从嘴巴里传出来。我竭力按住她在空中摆动的双手，因为我只知道如果我不这么做，这双手只会打在她自己的脸上。我贴着她的有些冰凉的身体，试图让她暖一点，然后用尽可能温柔的声音在她耳边重复“我在呢宝贝”。</p>
-<p>​	其实人可能就是这样，面对所爱之人的哭泣，自己再怎么难受都会忘掉自己的情绪，转而去安慰对方。因为自己的委屈就像是树底的阴影，而爱人的难过可能就是被愁云笼罩的大地。</p>
-<p>​	过了几分钟，怀里的H停止了哭泣，我问了问原因，她啜泣道：“过了这么久了，我终于相信你会一直陪着我，终于有了一点安全感。现在你却跟我说，‘如果因为其他因素分开我也可以接受’，呜呜，我就完全不能接受。”我感到有些自责，因为我并没能正确表达出我的意思。我或许会因此崩溃，但在她面前，我说不出来这种话，于是“可以接受”便成为了最好的托词——至少它看上去没有“崩溃”那么软弱。“因为你说你没办法拒绝他们的要求，如果有一天，在比较当中，我就是落选的那个。你没有办法拒绝。我只能接受。”我立马解释道。</p>
-<p>​	随后她嘟囔了一句简短的话，遗憾的是我并没有听清楚她的回答。</p>
-<p>​	后来她不再哭了，因为我开始哭了。我不知道自己为什么会哭，可能是自己眼前的那些影子在不断地议论我的价格，指摘我的质量问题，同时批评我的生产厂家，或许我因此感到很委屈。我已经经历过无数次的筛选和比较，此刻站在自己的恋人面前，我却要目睹她把选择的权利交于他人之手。</p>
-<p>​	“其实啊，她们所谓的比较，只会比较现在的人和之前的人。比如‘你现在这个男友可比以前那个好多啦’。或者她们只会比较不同的人的老公，比较房车工资之类的，谁会在意谁读了多少书呢。大家其实都是很世俗的人。“</p>
-<p>​	那一刻，我被一双大手从天平上拿了下来，我不再是谁的竞争对手，也许也不会再以货物的形式和别人比来比去了。</p>
-<p>​	“这样的话可能我唯一的优点都不会被比较啦。”我打趣道。</p>
-<p>​	“你的优点会在我身上体现出来的。跟你在一起之后，我的室友一直在嚷嚷着‘呀！上次H坐在书桌前两个小时一动不动都是什么时候啦？’”</p>
-<p>​	我很喜欢她躺在床上正对着我说话，我感到自己被在乎着。窗外的月华渐渐黯淡下来，透过窗帘的光芒也所剩无几了。我拥着她，我们的胸膛毫无阻隔地紧紧贴着，感受着彼此的心跳。</p>
-<p>​	“她身上好暖，”我想，“我们会这样解决一个又一个问题的。”</p>
+<p>​    很早以前，和H约好去迪士尼，时间定在了11月5号。</p>
+<p>​    11月4号，我到了车站，在很远的地方就看到了H——那个像小孩子一样一只手扶着行李箱，一只手叉着腰的女孩。她时不时晃晃头，尝试着捕捉她一直等待着的那个人。可惜，她的目光并没我想象中的锐利，她并没能发现我，因此我也就无从施展我从别人身上学来的小技巧——看到对方之后假装扫视一下对方周围的环境，最后目光聚焦在她身上对着她笑笑。要是能用上就好了，没准她会很开心。</p>
+<p>​    后来我们一同去逛了世界商场，买了些东西。回到酒店时已经不早了。H的妈妈给她打了一个不短的电话，而我则在床上睡着了。醒来时，她向我说她们对话的内容，详情我已经忘却大半，只记得听完她说的话之后我心里空落落的。</p>
+<p>​    后来，我们褪去衣物躺在床上，发生了一段令人难过的对话。</p>
+<p>​    H对我说，其实在恋爱中女生和男生很不一样：女生往往只需要得到男生本人的认可，而男生要面对的却不止女生一个人，还有她的家人、闺蜜、许许多多的朋友。她又开口，说如果她闺蜜的男友做出了什么让她闺蜜伤心的事情，不管这件事是对还是错，她都会帮着她闺蜜骂男友的。</p>
+<p>​    其实这只是立场的作用罢了，人总会本能地支持自己亲近的人。我不置可否，毕竟是我我也会这么做。只不过额外的，我可能更倾向于事物本身的对错——当然在此之前需要安抚“受害者”的情绪罢了。不过在那时那刻我切身听到那些话时，我总觉得被子外面的冷气格外肆虐，仿佛又回到了多年前的那个冬天。</p>
+<p>​    “我不会拒绝的父母的要求的。平时他们对我的决定都不怎么过问，事事都听我的。但等到他们真正下了通牒，我就清楚这些是命令——他们叫我不要怎么样，我不会想着拒绝。所以说这对你来说很不公平，因为你能决定你自己的事情，但我不能。”</p>
+<p>​    对啊，的确很不公平，那又如何呢。我睁开眼，看着周围暗下去的一切。民宿的窗帘遮光效果并不好，以至于我还能看到轻松跃过窗帘的朦胧的月光。或许是这微弱光芒引发了我的幻觉，我觉得身前立着几个高大的影子，七嘴八舌地讨论我的质量，以决定我的价格。</p>
+<p>​    “或许男生确实容易沦为被选择被比较的那一方吧，”我鬼使神差地说，可能是因为刚刚的幻觉吧，我有一种被摆在天平上比较的感觉，“我们因为缘分和喜欢与自己的恋人在一起，然后却要经过恋人身边的无数人的考验。最后在一层一层的比较中，感情的决定权早就不在相恋的人彼此手上了。”</p>
+<p>​    “他们叫我不要怎么样，我没办法拒绝”在我脑海中横冲直撞，让我感到有些晕眩，让我感到有些委屈。我压住自己的情绪，缓缓开口：“如果有一天，因为你身边的人，我们分开了……”我顿了顿，尝试着把眼泪困在眼眶里，随后说：“我也可以接受。”说来也是，我除了接受真的有其他选择吗？</p>
+<p>​    我转过头去，好让自己的情绪更稳定些。只是出乎我意料的，她哭得很厉害——她身体不停颤抖，下巴不受控制地下移，好让她撕心裂肺的哭声顺利从嘴巴里传出来。我竭力按住她在空中摆动的双手，因为我只知道如果我不这么做，这双手只会打在她自己的脸上。我贴着她的有些冰凉的身体，试图让她暖一点，然后用尽可能温柔的声音在她耳边重复“我在呢宝贝”。</p>
+<p>​    其实人可能就是这样，面对所爱之人的哭泣，自己再怎么难受都会忘掉自己的情绪，转而去安慰对方。因为自己的委屈就像是树底的阴影，而爱人的难过可能就是被愁云笼罩的大地。</p>
+<p>​    过了几分钟，怀里的H停止了哭泣，我问了问原因，她啜泣道：“过了这么久了，我终于相信你会一直陪着我，终于有了一点安全感。现在你却跟我说，‘如果因为其他因素分开我也可以接受’，呜呜，我就完全不能接受。”我感到有些自责，因为我并没能正确表达出我的意思。我或许会因此崩溃，但在她面前，我说不出来这种话，于是“可以接受”便成为了最好的托词——至少它看上去没有“崩溃”那么软弱。“因为你说你没办法拒绝他们的要求，如果有一天，在比较当中，我就是落选的那个。你没有办法拒绝。我只能接受。”我立马解释道。</p>
+<p>​    随后她嘟囔了一句简短的话，遗憾的是我并没有听清楚她的回答。</p>
+<p>​    后来她不再哭了，因为我开始哭了。我不知道自己为什么会哭，可能是自己眼前的那些影子在不断地议论我的价格，指摘我的质量问题，同时批评我的生产厂家，或许我因此感到很委屈。我已经经历过无数次的筛选和比较，此刻站在自己的恋人面前，我却要目睹她把选择的权利交于他人之手。</p>
+<p>​    “其实啊，她们所谓的比较，只会比较现在的人和之前的人。比如‘你现在这个男友可比以前那个好多啦’。或者她们只会比较不同的人的老公，比较房车工资之类的，谁会在意谁读了多少书呢。大家其实都是很世俗的人。“</p>
+<p>​    那一刻，我被一双大手从天平上拿了下来，我不再是谁的竞争对手，也许也不会再以货物的形式和别人比来比去了。</p>
+<p>​    “这样的话可能我唯一的优点都不会被比较啦。”我打趣道。</p>
+<p>​    “你的优点会在我身上体现出来的。跟你在一起之后，我的室友一直在嚷嚷着‘呀！上次H坐在书桌前两个小时一动不动都是什么时候啦？’”</p>
+<p>​    我很喜欢她躺在床上正对着我说话，我感到自己被在乎着。窗外的月华渐渐黯淡下来，透过窗帘的光芒也所剩无几了。我拥着她，我们的胸膛毫无阻隔地紧紧贴着，感受着彼此的心跳。</p>
+<p>​    “她身上好暖，”我想，“我们会这样解决一个又一个问题的。”</p>
 ]]></content>
       <categories>
         <category>日常</category>
@@ -116,25 +178,6 @@
       <tags>
         <tag>日常</tag>
         <tag>情感</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【过程记录】EXCEL十字定位线</title>
-    <url>/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/</url>
-    <content><![CDATA[<h1 id="网络插件"><a href="#网络插件" class="headerlink" title="网络插件"></a>网络插件</h1><p>易用宝：<a href="http://yyb.excelhome.net/download/">最新版下载 | Excel易用宝 (excelhome.net)</a></p>
-<p>易用宝功能部分需要微信扫码，由于只需要十字定位功能，所以考虑自行实现。</p>
-<h1 id="自行实现"><a href="#自行实现" class="headerlink" title="自行实现"></a>自行实现</h1><h2 id="条件格式"><a href="#条件格式" class="headerlink" title="条件格式"></a>条件格式</h2><p><code>=(CELL(&quot;row&quot;)==ROW()+(CELL(&quot;col&quot;)==COLUMN()))</code></p>
-<p><code>=(CELL(&quot;row&quot;)==ROW()*(CELL(&quot;col&quot;)==COLUMN()))</code></p>
-<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Private Sub Worksheet_SelectionChange(ByVal Target As Range)</span><br><span class="line">    Calculate</span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h2><p>条件格式的透明度</p>
-<p>条件格式如何形成全局文件</p>
-]]></content>
-      <categories>
-        <category>记录</category>
-      </categories>
-      <tags>
-        <tag>excel</tag>
       </tags>
   </entry>
   <entry>
@@ -175,84 +218,21 @@
       </tags>
   </entry>
   <entry>
-    <title>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</title>
-    <url>/2023/11/16/ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries/</url>
-    <content><![CDATA[<h1 id="ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries"><a href="#ViP3D-End-to-end-Visual-Trajectory-Prediction-via-3D-Agent-Queries" class="headerlink" title="ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries"></a>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</h1><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><ol>
-<li>传统的perception与prediction是分开建模的，导致：<ol>
-<li>两个模块只能通过接口通信，通信的信息十分有限，一般是geometric和semantic特征，比如historical agent trajectories, agent types and agent sizes. 因此许多明显的、预示着主题接下来的行动的信息没有被显式地建模，比如刹车灯亮、车头的偏移等。</li>
-<li>prediction模块作为perception模块的downstream，要承担perception模块产生的错误带来的影响，并且这种错误难以消解、会逐渐积累。</li>
-</ol>
-</li>
-<li>LiDAR-based trajectory prediction存在两大问题：<ol>
-<li>无法完全利用camera提供的细粒度信息</li>
-<li>模型使用feature map作为帧的中间表示，因此会在non-differentiable operations上受到阻碍，例如object decoding中的non-maximum suppression.</li>
-</ol>
-</li>
-</ol>
-<p><img src="/ADS_res/1/1.png"></p>
-<p>如图所示，传统的方法直接忽略了转向灯的影响。而ViP3D模型的prediction模块可以通过query捕捉到转向灯的改变传递的信息。</p>
-<h2 id="ViP3D模型"><a href="#ViP3D模型" class="headerlink" title="ViP3D模型"></a>ViP3D模型</h2><h3 id="整体架构"><a href="#整体架构" class="headerlink" title="整体架构"></a>整体架构</h3><p><img src="/ADS_res/1/2.png"></p>
-<p>对于每个个时间点，流程如下：</p>
-<ol>
-<li>获取输入，输入为多张不同角度的图片。</li>
-<li>通过DETR3D模型来从multi-view images 获得2D image features.</li>
-<li>通过Temporal Feature Aggregation对agent queries进行管理</li>
-<li>通过Query-based Prediction输出预测结果</li>
-</ol>
-<h3 id="Temporal-Feature-Aggregation"><a href="#Temporal-Feature-Aggregation" class="headerlink" title="Temporal Feature Aggregation"></a>Temporal Feature Aggregation</h3><p>其实就是如何在时间线上管理queries</p>
-<p>对于每个query，它要么就和一个agent相关联，要么就为空。</p>
-<h4 id="Query-Feature-Update"><a href="#Query-Feature-Update" class="headerlink" title="Query Feature Update"></a>Query Feature Update</h4><p>可以利用cross-attention来进行更新：</p>
-<p>$Q$是原来的queries集合，$K_L$和$V_L$分别是features序列的key和value.</p>
-<p>那么更新后的$Q_{new}&#x3D;FFN(softmax(\frac{QK_L^T}{\sqrt d_k})V_L+Q)$</p>
-<h4 id="Query-Feature-Supervision"><a href="#Query-Feature-Supervision" class="headerlink" title="Query Feature Supervision"></a>Query Feature Supervision</h4><p>描述了每个agent query在时间线上的变动，即如何利用t-1时刻的query来更新t时刻的query.</p>
-<p>就如同我们之前所说，query有两类：</p>
-<ol>
-<li>已经跟一个agent相关联。</li>
-<li>空。</li>
-</ol>
-<p>那么更新的策略就有两种：</p>
-<ol>
-<li><p>若当前的query在t-1时刻已经matched：</p>
-<ol>
-<li>若agent还在，那么$q_t&#x3D;q_{t-1}$</li>
-<li>否则$q_t &#x3D;EMPTY$</li>
-</ol>
-</li>
-<li><p>若当前query在t-1时刻没有matched：</p>
-<p>直接将所有新出现的agent和该query进行匹配。</p>
-</li>
-</ol>
-<h2 id="Query-based-Prediction"><a href="#Query-based-Prediction" class="headerlink" title="Query-based Prediction"></a>Query-based Prediction</h2><p>Outline：</p>
-<ol>
-<li>输入为agent queries.</li>
-<li>包含Map encoder来抓取map features</li>
-<li>包含trajectory decoder来输出预测的轨迹</li>
-</ol>
-<h3 id="Map-Encoding"><a href="#Map-Encoding" class="headerlink" title="Map Encoding"></a>Map Encoding</h3><p>利用VectorNet进行encode，得到结果Map features，记为$M$</p>
-<p>则之后agent query和map进行交互时则依赖于$Attention(Q,M)$</p>
-<h3 id="Trajectory-Decoding"><a href="#Trajectory-Decoding" class="headerlink" title="Trajectory Decoding"></a>Trajectory Decoding</h3><p>Outline:</p>
-<ol>
-<li>输入为agent queries.</li>
-<li>输出为对于每个agent的K条可能的轨迹。</li>
-</ol>
-<p>该模型兼容了多种trajectory decoding方法，如regression-based method, goal-based method, heatmap-based method.</p>
-<p>本文并没有详述具体的方法。</p>
-<h3 id="Loss"><a href="#Loss" class="headerlink" title="Loss"></a>Loss</h3><p>loss为前面agent query supervision的loss和轨迹预测的loss之和</p>
-<p>$L&#x3D;L_{cls}+L_{coord}+L_{traj}$</p>
-<p><img src="/ADS_res/1/3.png"></p>
-<p>对于$L_{traj}$，作者说在Appendix里，但我没找到附录。</p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p><img src="/ADS_res/1/4.png"></p>
-<p><img src="/ADS_res/1/5.png"></p>
-<p><img src="/ADS_res/1/6.png"></p>
-<p><img src="/ADS_res/1/7.png" alt="7"></p>
-<h2 id="Effect"><a href="#Effect" class="headerlink" title="Effect"></a>Effect</h2><p><img src="/ADS_res/1/8.png"></p>
+    <title>【过程记录】EXCEL十字定位线</title>
+    <url>/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/</url>
+    <content><![CDATA[<h1 id="网络插件"><a href="#网络插件" class="headerlink" title="网络插件"></a>网络插件</h1><p>易用宝：<a href="http://yyb.excelhome.net/download/">最新版下载 | Excel易用宝 (excelhome.net)</a></p>
+<p>易用宝功能部分需要微信扫码，由于只需要十字定位功能，所以考虑自行实现。</p>
+<h1 id="自行实现"><a href="#自行实现" class="headerlink" title="自行实现"></a>自行实现</h1><h2 id="条件格式"><a href="#条件格式" class="headerlink" title="条件格式"></a>条件格式</h2><p><code>=(CELL(&quot;row&quot;)==ROW()+(CELL(&quot;col&quot;)==COLUMN()))</code></p>
+<p><code>=(CELL(&quot;row&quot;)==ROW()*(CELL(&quot;col&quot;)==COLUMN()))</code></p>
+<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">Private Sub Worksheet_SelectionChange(ByVal Target As Range)</span><br><span class="line">    Calculate</span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h2><p>条件格式的透明度</p>
+<p>条件格式如何形成全局文件</p>
 ]]></content>
       <categories>
-        <category>论文概览</category>
+        <category>记录</category>
       </categories>
       <tags>
-        <tag>ADS</tag>
-        <tag>论文概览</tag>
+        <tag>excel</tag>
       </tags>
   </entry>
 </search>
