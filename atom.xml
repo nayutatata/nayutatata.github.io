@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-18T04:49:59.056Z</updated>
+  <updated>2023-11-18T13:34:58.452Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,51 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【日常】2023-11-18</title>
+    <link href="http://example.com/2023/11/18/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-18/"/>
+    <id>http://example.com/2023/11/18/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-18/</id>
+    <published>2023-11-18T12:57:12.000Z</published>
+    <updated>2023-11-18T13:34:58.452Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;人类养成日记&quot;&gt;&lt;a href=&quot;#人类养成日记&quot; class=&quot;headerlink&quot; title=&quot;人类养成日记&quot;&gt;&lt;/a&gt;人类养成日记&lt;/h1&gt;&lt;p&gt;今天意识到了主动分享的重要性。&lt;/p&gt;
+&lt;p&gt;从前我是一个乐于分享的人，但我的分享常常会绕过别人的手掌，摔在</summary>
+      
+    
+    
+    
+    <category term="日常" scheme="http://example.com/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+    <category term="情感" scheme="http://example.com/tags/%E6%83%85%E6%84%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【CSP】202212-2 训练计划</title>
+    <link href="http://example.com/2023/11/18/%E3%80%90CSP%E3%80%91202212-2-%E8%AE%AD%E7%BB%83%E8%AE%A1%E5%88%92/"/>
+    <id>http://example.com/2023/11/18/%E3%80%90CSP%E3%80%91202212-2-%E8%AE%AD%E7%BB%83%E8%AE%A1%E5%88%92/</id>
+    <published>2023-11-18T12:53:21.000Z</published>
+    <updated>2023-11-18T12:56:42.227Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;TBD&quot;&gt;&lt;a href=&quot;#TBD&quot; class=&quot;headerlink&quot; title=&quot;TBD&quot;&gt;&lt;/a&gt;TBD&lt;/h1&gt;</summary>
+      
+    
+    
+    
+    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
+    
+    
+    <category term="关键路径" scheme="http://example.com/tags/%E5%85%B3%E9%94%AE%E8%B7%AF%E5%BE%84/"/>
+    
+  </entry>
   
   <entry>
     <title>【CSP】202303-2 垦田计划</title>
