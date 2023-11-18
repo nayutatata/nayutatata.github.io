@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-16T15:28:18.548Z</updated>
+  <updated>2023-11-18T04:49:59.056Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【CSP】202303-2 垦田计划</title>
+    <link href="http://example.com/2023/11/18/%E3%80%90CSP%E3%80%91202303-2-%E5%9E%A6%E7%94%B0%E8%AE%A1%E5%88%92/"/>
+    <id>http://example.com/2023/11/18/%E3%80%90CSP%E3%80%91202303-2-%E5%9E%A6%E7%94%B0%E8%AE%A1%E5%88%92/</id>
+    <published>2023-11-18T04:04:30.000Z</published>
+    <updated>2023-11-18T04:49:59.056Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;问题描述&quot;&gt;&lt;a href=&quot;#问题描述&quot; class=&quot;headerlink&quot; title=&quot;问题描述&quot;&gt;&lt;/a&gt;问题描述&lt;/h1&gt;&lt;p&gt;见 &lt;a href=&quot;https://blog.csdn.net/tigerisland45/article/details</summary>
+      
+    
+    
+    
+    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
+    
+    
+    <category term="模拟" scheme="http://example.com/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="优先队列" scheme="http://example.com/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97/"/>
+    
+  </entry>
   
   <entry>
     <title>ViP3D: End-to-end Visual Trajectory Prediction via 3D Agent Queries</title>
