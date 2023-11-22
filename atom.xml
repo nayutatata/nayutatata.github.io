@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-20T13:15:17.074Z</updated>
+  <updated>2023-11-22T06:41:13.415Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【人类观察日记】2023-11-22</title>
+    <link href="http://example.com/2023/11/22/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912023-11-22/"/>
+    <id>http://example.com/2023/11/22/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912023-11-22/</id>
+    <published>2023-11-22T04:51:41.000Z</published>
+    <updated>2023-11-22T06:41:13.415Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;今天W来找我问了一长串问题，抱着了解不同类型的人类的想法，我还是聊了两句。&lt;/p&gt;
+&lt;p&gt;以前我都会把聊天记录直接转给H，这次我没有。她在聚会呢，不想坏她心情。&lt;/p&gt;
+&lt;p&gt;受制于W的发言跳跃性大、逻辑混乱，这里不便把聊天记录直接贴出，因此今天的故事需要靠我的转述了。&lt;/</summary>
+      
+    
+    
+    
+    <category term="人类观察日记" scheme="http://example.com/categories/%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0/"/>
+    
+    
+    <category term="情感" scheme="http://example.com/tags/%E6%83%85%E6%84%9F/"/>
+    
+    <category term="逆天" scheme="http://example.com/tags/%E9%80%86%E5%A4%A9/"/>
+    
+  </entry>
   
   <entry>
     <title>【CSP】202309-4 阴阳龙</title>
