@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-22T06:41:13.415Z</updated>
+  <updated>2023-11-24T10:48:30.804Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【CSP】202303-3 LDAP</title>
+    <link href="http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202303-3-LDAP/"/>
+    <id>http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202303-3-LDAP/</id>
+    <published>2023-11-24T09:14:36.000Z</published>
+    <updated>2023-11-24T10:48:30.804Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;题目要求&quot;&gt;&lt;a href=&quot;#题目要求&quot; class=&quot;headerlink&quot; title=&quot;题目要求&quot;&gt;&lt;/a&gt;题目要求&lt;/h1&gt;&lt;p&gt;见 &lt;a href=&quot;http://118.190.20.162/view.page?gpid=T163&quot;&gt;http://1</summary>
+      
+    
+    
+    
+    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
+    
+    
+    <category term="字符串处理" scheme="http://example.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86/"/>
+    
+    <category term="递归" scheme="http://example.com/tags/%E9%80%92%E5%BD%92/"/>
+    
+    <category term="表达式求值" scheme="http://example.com/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/"/>
+    
+  </entry>
   
   <entry>
     <title>【人类观察日记】2023-11-22</title>
