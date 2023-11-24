@@ -28,7 +28,7 @@
 <meta property="og:description" content="题目要求见 http:&#x2F;&#x2F;118.190.20.162&#x2F;view.page?gpid&#x3D;T158 思路矩阵输入采用先填充该位置，然后根据该位置计算下个位置的方法进行矩阵输入。 转移函数：  (x,y)&#x3D;\begin{cases} (x,y+1),(x&#x3D;0\lor x&#x3D;7)\land y\%2&#x3D;0\\ (x+1,y),(y&#x3D;0\lor y&#x3D;7)\land x\%2&#x3D;0\\ (x+1,y-1),(x+y">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-24T12:20:25.000Z">
-<meta property="article:modified_time" content="2023-11-24T12:29:38.019Z">
+<meta property="article:modified_time" content="2023-11-24T12:31:12.432Z">
 <meta property="article:author" content="Kevin.">
 <meta property="article:tag" content="模拟">
 <meta property="article:tag" content="蛇形矩阵">
@@ -234,7 +234,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-11-24 20:20:25 / 修改时间：20:29:38" itemprop="dateCreated datePublished" datetime="2023-11-24T20:20:25+08:00">2023-11-24</time>
+              <time title="创建时间：2023-11-24 20:20:25 / 修改时间：20:31:12" itemprop="dateCreated datePublished" datetime="2023-11-24T20:20:25+08:00">2023-11-24</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -505,6 +505,59 @@ setInterval("createtime()",250);
   
 
   
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
 
   
 
