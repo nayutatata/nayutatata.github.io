@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-24T10:52:43.503Z</updated>
+  <updated>2023-11-24T12:29:38.019Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【CSP】202212-3</title>
+    <link href="http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/"/>
+    <id>http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/</id>
+    <published>2023-11-24T12:20:25.000Z</published>
+    <updated>2023-11-24T12:29:38.019Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;题目要求&quot;&gt;&lt;a href=&quot;#题目要求&quot; class=&quot;headerlink&quot; title=&quot;题目要求&quot;&gt;&lt;/a&gt;题目要求&lt;/h1&gt;&lt;p&gt;见 &lt;a href=&quot;http://118.190.20.162/view.page?gpid=T158&quot;&gt;http://1</summary>
+      
+    
+    
+    
+    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
+    
+    
+    <category term="模拟" scheme="http://example.com/tags/%E6%A8%A1%E6%8B%9F/"/>
+    
+    <category term="蛇形矩阵" scheme="http://example.com/tags/%E8%9B%87%E5%BD%A2%E7%9F%A9%E9%98%B5/"/>
+    
+  </entry>
   
   <entry>
     <title>【CSP】202303-3 LDAP</title>
