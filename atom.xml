@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-24T12:31:12.432Z</updated>
+  <updated>2023-11-25T11:26:44.752Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【CSP】202209-2 何以包邮</title>
+    <link href="http://example.com/2023/11/25/%E3%80%90CSP%E3%80%91202209-2-%E4%BD%95%E4%BB%A5%E5%8C%85%E9%82%AE/"/>
+    <id>http://example.com/2023/11/25/%E3%80%90CSP%E3%80%91202209-2-%E4%BD%95%E4%BB%A5%E5%8C%85%E9%82%AE/</id>
+    <published>2023-11-25T10:01:42.000Z</published>
+    <updated>2023-11-25T11:26:44.752Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;题目要求&quot;&gt;&lt;a href=&quot;#题目要求&quot; class=&quot;headerlink&quot; title=&quot;题目要求&quot;&gt;&lt;/a&gt;题目要求&lt;/h1&gt;&lt;h1 id=&quot;思路&quot;&gt;&lt;a href=&quot;#思路&quot; class=&quot;headerlink&quot; title=&quot;思路&quot;&gt;&lt;/a&gt;思路&lt;/h</summary>
+      
+    
+    
+    
+    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
+    
+    
+    <category term="枚举子数组" scheme="http://example.com/tags/%E6%9E%9A%E4%B8%BE%E5%AD%90%E6%95%B0%E7%BB%84/"/>
+    
+    <category term="背包" scheme="http://example.com/tags/%E8%83%8C%E5%8C%85/"/>
+    
+  </entry>
   
   <entry>
     <title>【CSP】202212-3</title>
