@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-11-25T11:26:44.752Z</updated>
+  <updated>2023-11-25T11:53:23.523Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>【人类观察日记】2023-11-25</title>
+    <link href="http://example.com/2023/11/25/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912023-11-25/"/>
+    <id>http://example.com/2023/11/25/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912023-11-25/</id>
+    <published>2023-11-25T11:37:56.000Z</published>
+    <updated>2023-11-25T11:53:23.523Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;被骗&quot;&gt;&lt;a href=&quot;#被骗&quot; class=&quot;headerlink&quot; title=&quot;被骗&quot;&gt;&lt;/a&gt;被骗&lt;/h1&gt;&lt;p&gt;今天有个朋友被骗了500块钱，过程让人忍俊不禁。&lt;/p&gt;
+&lt;p&gt;有人打着活动回馈的名号，给A“转了”500块，称再把这些钱转回去可以提升DN</summary>
+      
+    
+    
+    
+    <category term="人类观察日记" scheme="http://example.com/categories/%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0/"/>
+    
+    
+    <category term="搞笑" scheme="http://example.com/tags/%E6%90%9E%E7%AC%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>【CSP】202209-2 何以包邮</title>
     <link href="http://example.com/2023/11/25/%E3%80%90CSP%E3%80%91202209-2-%E4%BD%95%E4%BB%A5%E5%8C%85%E9%82%AE/"/>
     <id>http://example.com/2023/11/25/%E3%80%90CSP%E3%80%91202209-2-%E4%BD%95%E4%BB%A5%E5%8C%85%E9%82%AE/</id>
     <published>2023-11-25T10:01:42.000Z</published>
-    <updated>2023-11-25T11:26:44.752Z</updated>
+    <updated>2023-11-25T11:29:14.781Z</updated>
     
     
       
