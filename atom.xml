@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-01T12:42:43.245Z</updated>
+  <updated>2023-12-01T12:49:50.468Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,72 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【ADS】Carla初步</title>
+    <link href="http://example.com/2023/12/01/%E3%80%90ADS%E3%80%91Carla%E5%88%9D%E6%AD%A5/"/>
+    <id>http://example.com/2023/12/01/%E3%80%90ADS%E3%80%91Carla%E5%88%9D%E6%AD%A5/</id>
+    <published>2023-12-01T12:49:23.000Z</published>
+    <updated>2023-12-01T12:49:50.468Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;TBD&quot;&gt;&lt;a href=&quot;#TBD&quot; class=&quot;headerlink&quot; title=&quot;TBD&quot;&gt;&lt;/a&gt;TBD&lt;/h1&gt;</summary>
+      
+    
+    
+    
+    <category term="ADS" scheme="http://example.com/categories/ADS/"/>
+    
+    
+    <category term="Carla" scheme="http://example.com/tags/Carla/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【教程】git整体认识</title>
+    <link href="http://example.com/2023/12/01/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91git%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/"/>
+    <id>http://example.com/2023/12/01/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91git%E6%95%B4%E4%BD%93%E8%AE%A4%E8%AF%86/</id>
+    <published>2023-12-01T12:47:36.000Z</published>
+    <updated>2023-12-01T12:48:41.735Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;TBD&quot;&gt;&lt;a href=&quot;#TBD&quot; class=&quot;headerlink&quot; title=&quot;TBD&quot;&gt;&lt;/a&gt;TBD&lt;/h1&gt;</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="http://example.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>【教程】git常用命令</title>
+    <link href="http://example.com/2023/12/01/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>http://example.com/2023/12/01/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</id>
+    <published>2023-12-01T12:46:58.000Z</published>
+    <updated>2023-12-01T12:48:15.735Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;TBD&quot;&gt;&lt;a href=&quot;#TBD&quot; class=&quot;headerlink&quot; title=&quot;TBD&quot;&gt;&lt;/a&gt;TBD&lt;/h1&gt;</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="http://example.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="git" scheme="http://example.com/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>【日常】2023-12-1</title>
