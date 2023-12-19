@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-09T08:31:01.174Z</updated>
+  <updated>2023-12-19T03:34:49.148Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【教程】Anaconda_for_linux</title>
+    <link href="http://example.com/2023/12/19/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91Anaconda-for-linux/"/>
+    <id>http://example.com/2023/12/19/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91Anaconda-for-linux/</id>
+    <published>2023-12-19T02:58:48.000Z</published>
+    <updated>2023-12-19T03:34:49.148Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;下载压缩包&quot;&gt;&lt;a href=&quot;#下载压缩包&quot; class=&quot;headerlink&quot; title=&quot;下载压缩包&quot;&gt;&lt;/a&gt;下载压缩包&lt;/h1&gt;&lt;p&gt;在&lt;a href=&quot;https://www.anaconda.com/download&quot;&gt;Free Download</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="http://example.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="Anaconda" scheme="http://example.com/tags/Anaconda/"/>
+    
+  </entry>
   
   <entry>
     <title>【日常】2023-12-9</title>
@@ -45,12 +67,12 @@
     <link href="http://example.com/2023/12/01/%E3%80%90ADS%E3%80%91Carla%E5%88%9D%E6%AD%A5/"/>
     <id>http://example.com/2023/12/01/%E3%80%90ADS%E3%80%91Carla%E5%88%9D%E6%AD%A5/</id>
     <published>2023-12-01T12:49:23.000Z</published>
-    <updated>2023-12-01T12:49:50.468Z</updated>
+    <updated>2023-12-19T03:52:46.991Z</updated>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;TBD&quot;&gt;&lt;a href=&quot;#TBD&quot; class=&quot;headerlink&quot; title=&quot;TBD&quot;&gt;&lt;/a&gt;TBD&lt;/h1&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;操作系统选择&quot;&gt;&lt;a href=&quot;#操作系统选择&quot; class=&quot;headerlink&quot; title=&quot;操作系统选择&quot;&gt;&lt;/a&gt;操</summary>
       
     
     
@@ -465,32 +487,6 @@
     
     
     <category term="excel" scheme="http://example.com/tags/excel/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【日常】2023-11-4</title>
-    <link href="http://example.com/2023/11/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-4/"/>
-    <id>http://example.com/2023/11/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-4/</id>
-    <published>2023-11-09T06:34:24.000Z</published>
-    <updated>2023-11-09T09:25:20.086Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;&lt;strong&gt;以流水账的形式记录一些故事&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;​    很早以前，和H约好去迪士尼，时间定在了11月5号。&lt;/p&gt;
-&lt;p&gt;​    11月4号，我到了车站，在很远的地方就看到了H——那个像小孩子一样一只手扶着行李箱，一只手叉着腰的女孩。她时不时</summary>
-      
-    
-    
-    
-    <category term="日常" scheme="http://example.com/categories/%E6%97%A5%E5%B8%B8/"/>
-    
-    
-    <category term="日常" scheme="http://example.com/tags/%E6%97%A5%E5%B8%B8/"/>
-    
-    <category term="情感" scheme="http://example.com/tags/%E6%83%85%E6%84%9F/"/>
     
   </entry>
   
