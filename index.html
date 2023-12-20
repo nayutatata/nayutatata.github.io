@@ -205,6 +205,90 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/20/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BC%80%E6%9C%BA%E6%97%B6%E9%80%89%E6%8B%A9%E4%B8%8D%E5%90%8Clinux%E5%86%85%E6%A0%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/20/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BC%80%E6%9C%BA%E6%97%B6%E9%80%89%E6%8B%A9%E4%B8%8D%E5%90%8Clinux%E5%86%85%E6%A0%B8/" class="post-title-link" itemprop="url">【教程】如何在开机时选择不同linux内核</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-12-20 09:37:27 / 修改时间：10:03:52" itemprop="dateCreated datePublished" datetime="2023-12-20T09:37:27+08:00">2023-12-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>75</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br></pre></td></tr></table></figure>
+<p>然后将文件中的<code>GRUB_DEFAULT</code>从<code>0</code>改为其他值即可。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo update-grub <span class="comment"># 更新设置</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/19/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91Anaconda-for-linux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -423,7 +507,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-19 11:52:46" itemprop="dateModified" datetime="2023-12-19T11:52:46+08:00">2023-12-19</time>
+                <time title="修改时间：2023-12-20 13:01:57" itemprop="dateModified" datetime="2023-12-20T13:01:57+08:00">2023-12-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -441,7 +525,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>358</span>
+              <span>495</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -468,6 +552,7 @@
 <p>在<code>PythonAPI/carla</code>中有<code>requirements.txt</code>，里面有所需的依赖。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install -r requirements.txt</span><br></pre></td></tr></table></figure>
 <p>安装<code>nvidia</code>驱动。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">apt search nvidia-driver <span class="comment"># 找到所有能安装的版本</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt install &lt;driver_name&gt;</span><br><span class="line">dpkg -l | grep -i nvidia <span class="comment"># 查看是否安装成功</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
 <p>启动：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./CARLAUE4.sh -quality-level=Low -prefernvidia</span><br></pre></td></tr></table></figure>
 
@@ -1010,98 +1095,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/image.jpg">
-      <meta itemprop="name" content="Kevin.">
-      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/" class="post-title-link" itemprop="url">【CSP】202212-3</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-11-24 20:20:25 / 修改时间：20:31:12" itemprop="dateCreated datePublished" datetime="2023-11-24T20:20:25+08:00">2023-11-24</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSP/" itemprop="url" rel="index"><span itemprop="name">CSP</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h1><p>见 <a target="_blank" rel="noopener" href="http://118.190.20.162/view.page?gpid=T158">http://118.190.20.162/view.page?gpid=T158</a></p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="矩阵输入"><a href="#矩阵输入" class="headerlink" title="矩阵输入"></a>矩阵输入</h2><p>采用先填充该位置，然后根据该位置计算下个位置的方法进行矩阵输入。</p>
-<p>转移函数：</p>
-<script type="math/tex; mode=display">
-(x,y)=\begin{cases}
-(x,y+1),(x=0\lor x=7)\land y\%2=0\\
-(x+1,y),(y=0\lor y=7)\land x\%2=0\\
-(x+1,y-1),(x+y)\%2=1\\
-(x-1,y+1),(x+y)\%2=0
-\end{cases}</script><h2 id="结果四舍五入"><a href="#结果四舍五入" class="headerlink" title="结果四舍五入"></a>结果四舍五入</h2><p><code>(int)(ans+0.5)</code></p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pi (acos(-1))</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">Q</span>(<span class="number">8</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">8</span>)), <span class="built_in">M</span>(<span class="number">8</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">8</span>,<span class="number">0</span>)),<span class="built_in">res</span>(<span class="number">8</span>,<span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(<span class="number">8</span>));</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pm</span><span class="params">(vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; a)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++) &#123;</span><br><span class="line">			cout &lt;&lt; a[i][j] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++) &#123;</span><br><span class="line">			cin &gt;&gt; Q[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="type">int</span> n;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	<span class="type">int</span> T;</span><br><span class="line">	cin &gt;&gt; T;</span><br><span class="line">	<span class="type">int</span> x = <span class="number">0</span>, y = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (i &gt;= n) <span class="keyword">break</span>;</span><br><span class="line">		cin &gt;&gt; M[x][y];</span><br><span class="line">		<span class="keyword">if</span> (x == <span class="number">0</span> || x == <span class="number">7</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (y % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">				y++;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (x == <span class="number">0</span>)</span><br><span class="line">				x++, y--;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				x--, y++;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (y == <span class="number">0</span> || y == <span class="number">7</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (x % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">				x++;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (y == <span class="number">0</span>)</span><br><span class="line">				x--, y++;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				x++, y--;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> ((x + y) % <span class="number">2</span> == <span class="number">1</span>)</span><br><span class="line">				x++, y--;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				x--, y++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (T == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="built_in">pm</span>(M);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//pm(M);</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++) &#123;</span><br><span class="line">			M[i][j] *= Q[i][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (T == <span class="number">1</span>) &#123;</span><br><span class="line">		<span class="built_in">pm</span>(M);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//pm(M);</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; <span class="number">8</span>; j++) &#123;</span><br><span class="line">			<span class="type">double</span> ans = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> u = <span class="number">0</span>; u &lt; <span class="number">8</span>; u++) &#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="type">int</span> v = <span class="number">0</span>; v &lt; <span class="number">8</span>; v++) &#123;</span><br><span class="line">					<span class="type">double</span> f_u = u == <span class="number">0</span> ? <span class="built_in">sqrt</span>(<span class="number">0.5</span>) : <span class="number">1</span>;</span><br><span class="line">					<span class="type">double</span> f_v = v == <span class="number">0</span> ? <span class="built_in">sqrt</span>(<span class="number">0.5</span>) : <span class="number">1</span>;</span><br><span class="line">					ans += f_u * f_v * M[u][v] * <span class="built_in">cos</span>(pi / <span class="number">8</span> * u * (i + <span class="number">0.5</span>)) * <span class="built_in">cos</span>(pi / <span class="number">8</span> * v * (j + <span class="number">0.5</span>));</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="type">int</span> a = (ans * <span class="number">0.25</span> + <span class="number">128</span> + <span class="number">0.5</span>);</span><br><span class="line">			<span class="keyword">if</span> (a &gt; <span class="number">255</span>) a = <span class="number">255</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (a &lt; <span class="number">0</span>) a = <span class="number">0</span>;</span><br><span class="line">			res[i][j] = a;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">pm</span>(res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1173,7 +1166,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1186,7 +1179,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">29</span>
+        <span class="site-state-item-count">30</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

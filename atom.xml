@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-12-19T03:34:49.148Z</updated>
+  <updated>2023-12-20T02:03:52.997Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【教程】如何在开机时选择不同linux内核</title>
+    <link href="http://example.com/2023/12/20/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BC%80%E6%9C%BA%E6%97%B6%E9%80%89%E6%8B%A9%E4%B8%8D%E5%90%8Clinux%E5%86%85%E6%A0%B8/"/>
+    <id>http://example.com/2023/12/20/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BC%80%E6%9C%BA%E6%97%B6%E9%80%89%E6%8B%A9%E4%B8%8D%E5%90%8Clinux%E5%86%85%E6%A0%B8/</id>
+    <published>2023-12-20T01:37:27.000Z</published>
+    <updated>2023-12-20T02:03:52.997Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;figure class=&quot;highlight sh&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="http://example.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="重装系统" scheme="http://example.com/tags/%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>【教程】Anaconda_for_linux</title>
@@ -67,7 +89,7 @@
     <link href="http://example.com/2023/12/01/%E3%80%90ADS%E3%80%91Carla%E5%88%9D%E6%AD%A5/"/>
     <id>http://example.com/2023/12/01/%E3%80%90ADS%E3%80%91Carla%E5%88%9D%E6%AD%A5/</id>
     <published>2023-12-01T12:49:23.000Z</published>
-    <updated>2023-12-19T03:52:46.991Z</updated>
+    <updated>2023-12-20T05:01:57.330Z</updated>
     
     
       
@@ -465,28 +487,6 @@
     <category term="日常" scheme="http://example.com/tags/%E6%97%A5%E5%B8%B8/"/>
     
     <category term="情感" scheme="http://example.com/tags/%E6%83%85%E6%84%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【过程记录】EXCEL十字定位线</title>
-    <link href="http://example.com/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/"/>
-    <id>http://example.com/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/</id>
-    <published>2023-11-10T04:10:52.000Z</published>
-    <updated>2023-11-10T04:22:03.945Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;网络插件&quot;&gt;&lt;a href=&quot;#网络插件&quot; class=&quot;headerlink&quot; title=&quot;网络插件&quot;&gt;&lt;/a&gt;网络插件&lt;/h1&gt;&lt;p&gt;易用宝：&lt;a href=&quot;http://yyb.excelhome.net/download/&quot;&gt;最新版下载 | Excel</summary>
-      
-    
-    
-    
-    <category term="记录" scheme="http://example.com/categories/%E8%AE%B0%E5%BD%95/"/>
-    
-    
-    <category term="excel" scheme="http://example.com/tags/excel/"/>
     
   </entry>
   

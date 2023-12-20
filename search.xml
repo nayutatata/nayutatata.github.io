@@ -606,6 +606,7 @@
 <p>在<code>PythonAPI/carla</code>中有<code>requirements.txt</code>，里面有所需的依赖。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install -r requirements.txt</span><br></pre></td></tr></table></figure>
 <p>安装<code>nvidia</code>驱动。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt search nvidia-driver <span class="comment"># 找到所有能安装的版本</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt install &lt;driver_name&gt;</span><br><span class="line">dpkg -l | grep -i nvidia <span class="comment"># 查看是否安装成功</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
 <p>启动：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./CARLAUE4.sh -quality-level=Low -prefernvidia</span><br></pre></td></tr></table></figure>
 ]]></content>
@@ -683,6 +684,20 @@
       </categories>
       <tags>
         <tag>Anaconda</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【教程】如何在开机时选择不同linux内核</title>
+    <url>/2023/12/20/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91%E5%A6%82%E4%BD%95%E5%9C%A8%E5%BC%80%E6%9C%BA%E6%97%B6%E9%80%89%E6%8B%A9%E4%B8%8D%E5%90%8Clinux%E5%86%85%E6%A0%B8/</url>
+    <content><![CDATA[<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo vim /etc/default/grub</span><br></pre></td></tr></table></figure>
+<p>然后将文件中的<code>GRUB_DEFAULT</code>从<code>0</code>改为其他值即可。</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">sudo update-grub <span class="comment"># 更新设置</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+      <tags>
+        <tag>重装系统</tag>
       </tags>
   </entry>
 </search>
