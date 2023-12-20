@@ -603,12 +603,18 @@
 <p>下载后得到一个<code>*.tar.gz</code>文件，可以直接使用<code>tar -zxvf &lt;filename&gt;</code>进行解压。</p>
 <p>创建并激活虚拟环境：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">conda create -n carla python==3.8</span><br><span class="line">conda activate carla</span><br></pre></td></tr></table></figure>
+<p>安装client：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install carla</span><br></pre></td></tr></table></figure>
 <p>在<code>PythonAPI/carla</code>中有<code>requirements.txt</code>，里面有所需的依赖。</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip3 install --upgrade pip</span><br><span class="line">pip3 install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">pip3 install -r requirements.txt</span><br></pre></td></tr></table></figure>
 <p>安装<code>nvidia</code>驱动。</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">apt search nvidia-driver <span class="comment"># 找到所有能安装的版本</span></span><br><span class="line">sudo apt update</span><br><span class="line">sudo apt upgrade</span><br><span class="line">sudo apt install &lt;driver_name&gt;</span><br><span class="line">dpkg -l | grep -i nvidia <span class="comment"># 查看是否安装成功</span></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
 <p>启动：</p>
 <figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">./CARLAUE4.sh -quality-level=Low -prefernvidia</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>切换到<code>PythonAPI/examples</code>目录下</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">python3 -m pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p>输入以下命令观察地图中是否出现车辆：</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">python generate_traffic.py</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>ADS</category>
