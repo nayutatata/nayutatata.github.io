@@ -205,6 +205,110 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/19/%E3%80%90CSP%E3%80%91202309-3-%E6%A2%AF%E5%BA%A6%E6%B1%82%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/19/%E3%80%90CSP%E3%80%91202309-3-%E6%A2%AF%E5%BA%A6%E6%B1%82%E8%A7%A3/" class="post-title-link" itemprop="url">【CSP】202309-3 梯度求解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-19 19:43:27 / 修改时间：20:16:55" itemprop="dateCreated datePublished" datetime="2023-11-19T19:43:27+08:00">2023-11-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSP/" itemprop="url" rel="index"><span itemprop="name">CSP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h1><p>见 <a target="_blank" rel="noopener" href="http://118.190.20.162/view.page?gpid=T173">http://118.190.20.162/view.page?gpid=T173</a></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="输入处理"><a href="#输入处理" class="headerlink" title="输入处理"></a>输入处理</h2><p>输入的表达式是一个以空格分割的字符串，那么如何读取这个字符串，如何将字符串分割呢？</p>
+<h3 id="输入字符串"><a href="#输入字符串" class="headerlink" title="输入字符串"></a>输入字符串</h3><p>首先，<code>std::getline(cin,str)</code>可以读取一整行字符串。但需要注意的是，该函数并不能像<code>cin&gt;&gt;</code>一样直接清空缓冲区。所以如果缓冲区里有回车，一定要记得<strong>在<code>getline</code>前面加一个<code>getchar</code></strong></p>
+<h3 id="取出被空格分割的字符串"><a href="#取出被空格分割的字符串" class="headerlink" title="取出被空格分割的字符串"></a>取出被空格分割的字符串</h3><p>头文件<code>&lt;sstream&gt;</code>中有<code>stringstream</code>类，可以用于完成这个任务。</p>
+<ol>
+<li>初始化<code>stringstream ss(str)</code>，可以直接用字符串进行初始化。</li>
+<li><code>ss.str()</code>表示的是<code>ss</code>里面存的字符串。</li>
+<li><code>ss&gt;&gt;str</code>将会像<code>cin&gt;&gt;str</code>一样，去除<code>ss</code>当前位置可能的前导空格，读取一个数据直到遇到下一个空格为止，并且该空格不会被删除。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stringstream&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function">stringstream <span class="title">ss</span><span class="params">(<span class="string">&quot;abc def ghi jkl mno&quot;</span>)</span></span>;</span><br><span class="line">    string s;</span><br><span class="line">    <span class="keyword">while</span>(ss&gt;&gt;s)&#123; <span class="comment">// 每次循环都会更新s,而不是在原来的基础上拼接。返回值为ss的地址，但是似乎ss&gt;&gt;s到bool的强制类型转换被设计过，ss被读取完毕后就会返回false。在读取过程中ss存储的字符串本身不会改变，改变的是读写指针。</span></span><br><span class="line">        cout&lt;&lt;s&lt;&lt;endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="求偏导过程"><a href="#求偏导过程" class="headerlink" title="求偏导过程"></a>求偏导过程</h2><p>和正常的逆波兰表达式求值没有太大区别。只不过栈里面的数据结构不只是数字，而是计算的结果和对应的偏导结果。</p>
+<p>约定只有求导的对象才是变量，其他都是常数：</p>
+<ol>
+<li>如果是变量，值设为对应的值，导数设为1，入栈。</li>
+<li>如果是常量，值设为常量值，导数设为0，入栈。</li>
+<li>如果是符号，取出两个操作数，计算结果，并按照求导法则求出导数，入栈。</li>
+</ol>
+<p><strong>注意，先出栈的是右边的操作数，即operand2</strong></p>
+<p><strong>Q：为什么可以直接在栈里面存求导的结果呢？正常来说不应该是将导函数求出来之后再代入具体数值吗？</strong></p>
+<p>A：假设从栈里取出来的是式子，分别为$f(x)$和$g(x)$且此时的操作符是乘号。那么我们应当把$f(x)g(x)$和$f(x)g’(x)+f’(x)g(x)$入栈。但事实上，如果我们要求的是导数在$x=1$处的值，存结果也是一样的。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>注意结果取模的问题，为了防止结果为负数，采用该取模方式：</p>
+<p><code>ans = ((ans)%MOD+MOD)%MOD;</code></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// http://118.190.20.162/view.page?gpid=T173</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">define</span> ll long long int</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MOD 1000000007</span></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">elem</span> &#123;</span><br><span class="line">    <span class="type">int</span> index;</span><br><span class="line">    ll value;</span><br><span class="line">    ll dao;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function">ll <span class="title">Stoi</span><span class="params">(string a)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> sign = <span class="number">1</span>;</span><br><span class="line">    ll ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (a[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">        sign = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; a.<span class="built_in">length</span>(); i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (a[i] != <span class="string">&#x27;-&#x27;</span>)</span><br><span class="line">            ans = <span class="number">10</span> * ans + (a[i] - <span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans * sign;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n, m;</span><br><span class="line">    cin &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    string op;</span><br><span class="line">    <span class="built_in">getchar</span>();</span><br><span class="line">    <span class="built_in">getline</span>(cin, op);</span><br><span class="line">    vector&lt;elem&gt; expr;</span><br><span class="line">    stack&lt;elem&gt; st;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        <span class="type">int</span> tar;</span><br><span class="line">        <span class="function">vector&lt;ll&gt; <span class="title">value</span><span class="params">(n + <span class="number">1</span>)</span></span>;</span><br><span class="line">        cin &gt;&gt; tar;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= n; j++)</span><br><span class="line">            cin &gt;&gt; value[j];</span><br><span class="line">        <span class="function">stringstream <span class="title">ss</span><span class="params">(op)</span></span>;</span><br><span class="line">        string s;</span><br><span class="line">        <span class="keyword">while</span> (ss&gt;&gt;s)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (s[<span class="number">0</span>] == <span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                elem a;</span><br><span class="line">                a.index = <span class="built_in">Stoi</span>(s.<span class="built_in">substr</span>(<span class="number">1</span>, s.<span class="built_in">length</span>() - <span class="number">1</span>));</span><br><span class="line">                a.dao = tar == a.index ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">                a.value = value[a.index];</span><br><span class="line">                st.<span class="built_in">push</span>(a);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (s.<span class="built_in">length</span>()==<span class="number">1</span> &amp;&amp; (s[<span class="number">0</span>] == <span class="string">&#x27;+&#x27;</span> || s[<span class="number">0</span>] == <span class="string">&#x27;-&#x27;</span> || s[<span class="number">0</span>] == <span class="string">&#x27;*&#x27;</span>))</span><br><span class="line">            &#123;</span><br><span class="line">                elem op2 = st.<span class="built_in">top</span>();</span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                elem op1 = st.<span class="built_in">top</span>();</span><br><span class="line">                st.<span class="built_in">pop</span>();</span><br><span class="line">                elem res;</span><br><span class="line">                <span class="keyword">switch</span> (s[<span class="number">0</span>]) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>: &#123;</span><br><span class="line">                    res.value = ((op1.value + op2.value)%MOD+MOD)%MOD;</span><br><span class="line">                    res.dao = ((op1.dao + op2.dao)%MOD+MOD)%MOD;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>: &#123;</span><br><span class="line">                    res.value = ((op1.value - op2.value)%MOD+MOD)%MOD;</span><br><span class="line">                    res.dao = ((op1.dao - op2.dao)%MOD+MOD)%MOD;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>: &#123;</span><br><span class="line">                    res.value = ((op1.value * op2.value)%MOD+MOD)%MOD;</span><br><span class="line">                    res.dao = ((op1.dao * op2.value + op1.value * op2.dao)%MOD+MOD)%MOD;</span><br><span class="line">                &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                st.<span class="built_in">push</span>(res);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                elem a;</span><br><span class="line">                a.value = <span class="built_in">Stoi</span>(s);</span><br><span class="line">                a.dao = <span class="number">0</span>;</span><br><span class="line">                st.<span class="built_in">push</span>(a);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ll ans = st.<span class="built_in">top</span>().dao;</span><br><span class="line">        </span><br><span class="line">        cout &lt;&lt; ((ans%MOD)+MOD)%MOD &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/18/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-18/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1164,7 +1268,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

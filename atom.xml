@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-01-07T11:39:02.301Z</updated>
+  <updated>2024-01-10T12:21:20.407Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【人类观察日记】2024-01-10</title>
+    <link href="http://example.com/2024/01/10/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912024-01-10/"/>
+    <id>http://example.com/2024/01/10/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912024-01-10/</id>
+    <published>2024-01-10T11:48:43.000Z</published>
+    <updated>2024-01-10T12:21:20.407Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1&quot;&gt;&lt;/a&gt;1&lt;/h1&gt;&lt;p&gt;这次自然是要说到之前提过的W.&lt;/p&gt;
+&lt;p&gt;起因W在朋友圈公开发文“我永远臣服于X宝宝(指的是我)”.&lt;/p&gt;
+&lt;p&gt;我看到之后如临大敌，马上截图</summary>
+      
+    
+    
+    
+    <category term="人类观察日记" scheme="http://example.com/categories/%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0/"/>
+    
+    
+    <category term="逆天" scheme="http://example.com/tags/%E9%80%86%E5%A4%A9/"/>
+    
+  </entry>
   
   <entry>
     <title>【LC】滑动窗口</title>
@@ -461,34 +485,6 @@
     <category term="自定义数据类型的hash" scheme="http://example.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84hash/"/>
     
     <category term="STL的二分查找" scheme="http://example.com/tags/STL%E7%9A%84%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【CSP】202309-3 梯度求解</title>
-    <link href="http://example.com/2023/11/19/%E3%80%90CSP%E3%80%91202309-3-%E6%A2%AF%E5%BA%A6%E6%B1%82%E8%A7%A3/"/>
-    <id>http://example.com/2023/11/19/%E3%80%90CSP%E3%80%91202309-3-%E6%A2%AF%E5%BA%A6%E6%B1%82%E8%A7%A3/</id>
-    <published>2023-11-19T11:43:27.000Z</published>
-    <updated>2023-11-19T12:16:55.595Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;题目要求&quot;&gt;&lt;a href=&quot;#题目要求&quot; class=&quot;headerlink&quot; title=&quot;题目要求&quot;&gt;&lt;/a&gt;题目要求&lt;/h1&gt;&lt;p&gt;见 &lt;a href=&quot;http://118.190.20.162/view.page?gpid=T173&quot;&gt;http://1</summary>
-      
-    
-    
-    
-    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
-    
-    
-    <category term="模拟" scheme="http://example.com/tags/%E6%A8%A1%E6%8B%9F/"/>
-    
-    <category term="栈" scheme="http://example.com/tags/%E6%A0%88/"/>
-    
-    <category term="逆波兰表达式" scheme="http://example.com/tags/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    
-    <category term="stringstream" scheme="http://example.com/tags/stringstream/"/>
     
   </entry>
   
