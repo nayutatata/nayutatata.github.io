@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-01-10T12:21:20.407Z</updated>
+  <updated>2024-01-16T06:26:36.645Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【日常】2024-01-16</title>
+    <link href="http://example.com/2024/01/16/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912024-01-16/"/>
+    <id>http://example.com/2024/01/16/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912024-01-16/</id>
+    <published>2024-01-16T06:18:46.000Z</published>
+    <updated>2024-01-16T06:26:36.645Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;期末考试结束了，老师决定开本学期的最后一次组会，时间定在x号。&lt;/p&gt;
+&lt;p&gt;但是A早已订好了x-1号的机票，于是为了开组会，改签到了x+1号。&lt;/p&gt;
+&lt;p&gt;在老师征集意见，好决定是上午还是下午开会时，A选择上午开会——A下午想出去玩，于是给出了“下午要坐飞机回家”的理由</summary>
+      
+    
+    
+    
+    <category term="日常" scheme="http://example.com/categories/%E6%97%A5%E5%B8%B8/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>【人类观察日记】2024-01-10</title>
@@ -459,32 +481,6 @@
     <category term="情感" scheme="http://example.com/tags/%E6%83%85%E6%84%9F/"/>
     
     <category term="逆天" scheme="http://example.com/tags/%E9%80%86%E5%A4%A9/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【CSP】202309-4 阴阳龙</title>
-    <link href="http://example.com/2023/11/20/%E3%80%90CSP%E3%80%91202309-4-%E9%98%B4%E9%98%B3%E9%BE%99/"/>
-    <id>http://example.com/2023/11/20/%E3%80%90CSP%E3%80%91202309-4-%E9%98%B4%E9%98%B3%E9%BE%99/</id>
-    <published>2023-11-20T11:25:13.000Z</published>
-    <updated>2023-11-20T13:15:17.074Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;题目要求&quot;&gt;&lt;a href=&quot;#题目要求&quot; class=&quot;headerlink&quot; title=&quot;题目要求&quot;&gt;&lt;/a&gt;题目要求&lt;/h1&gt;&lt;p&gt;见 &lt;a href=&quot;http://118.190.20.162/view.page?gpid=T172&quot;&gt;http://1</summary>
-      
-    
-    
-    
-    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
-    
-    
-    <category term="模拟" scheme="http://example.com/tags/%E6%A8%A1%E6%8B%9F/"/>
-    
-    <category term="自定义数据类型的hash" scheme="http://example.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84hash/"/>
-    
-    <category term="STL的二分查找" scheme="http://example.com/tags/STL%E7%9A%84%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     
   </entry>
   
