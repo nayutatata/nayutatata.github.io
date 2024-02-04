@@ -205,6 +205,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/04/%E3%80%90LC%E3%80%91Z-algorithm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/04/%E3%80%90LC%E3%80%91Z-algorithm/" class="post-title-link" itemprop="url">【LC】Z-algorithm</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-04 19:03:16 / 修改时间：20:51:09" itemprop="dateCreated datePublished" datetime="2024-02-04T19:03:16+08:00">2024-02-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LC/" itemprop="url" rel="index"><span itemprop="name">LC</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h1><p>对于给定的字符串$s[0..n-1]$，返回一个数组$Z[0..n-1]$，其中$Z[i]$表示$s[i:]$与$s$前缀的最大匹配长度。</p>
+<h1 id="算法思路"><a href="#算法思路" class="headerlink" title="算法思路"></a>算法思路</h1><h2 id="朴素的想法"><a href="#朴素的想法" class="headerlink" title="朴素的想法"></a>朴素的想法</h2><p>对于$s[i:]$，暴力匹配，时间复杂度为$O(n^2)$​.</p>
+<h2 id="Z-Algorithm"><a href="#Z-Algorithm" class="headerlink" title="Z-Algorithm"></a>Z-Algorithm</h2><p>可以维护一个滑动窗口$[l,r]$，表示上次已经匹配的子串的位置。那么显然有对于$\forall i\in[l,r],s[i]=s[i-l]$. 那么对于当前所处理的下标$i$，有两种可能的情况。</p>
+<ul>
+<li><p>如果$i&gt;r$，那么在处理$i$时，无法利用已有的任何信息，直接暴力匹配即可。匹配完毕后，更新滑动窗口的值。</p>
+</li>
+<li><p>如果$i\in[l,r]$，那么则可以利用已有的结果进行一些处理，这取决于窗口尾部大小$len=r-i+1$和可利用结果$res=Z[i-l]$的关系。</p>
+<p>首先明确$res$的作用——它指明了$s[i-l]$能够匹配$s$的长度为$res$的前缀。又因为我们想要明确$Z[i]$的值，因此我们需要比较$Z[i]$和$Z[0]$，而这个比较已经在得到$res$的过程中做过了。设我们计算$Z[i-l]$所产生的滑动窗口为$[l’,r’]=[i-l,i-l+res-1]$. 那么，我们就知道了$s[l’]=s[0],s[l’+1]=s[1]$等等。同时，通过$[l,r]$窗口提供的信息，我们可以知道的是$s[i]=s[i-l]=s[l’],s[i+1]=s[i-l+1]=s[l’+1]$等等。那么我们可以确保的是$Z[i]$至少是$min(res,len)$.</p>
+<ol>
+<li>若$res&lt;len$，那么$Z[i]=res$.</li>
+<li>否则，从$r+1$开始暴力匹配$s[r+1:]$和$s[r+1-l:]$.</li>
+</ol>
+</li>
+</ul>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>平铺直叙的实现</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">Z</span><span class="params">(string s)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n)</span></span>;</span><br><span class="line">    ans[<span class="number">0</span>]=n;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (i&lt;n)&#123;</span><br><span class="line">        <span class="keyword">if</span> (i&gt;r)&#123;</span><br><span class="line">           	l = r = i;</span><br><span class="line">            <span class="keyword">while</span> (r&lt;n&amp;&amp;s[r]==s[r-l]) r++;</span><br><span class="line">            r--;</span><br><span class="line">            ans[i]=r-l+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (ans[i-l]&lt;r-i+<span class="number">1</span>) ans[i]=ans[i-l];</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                l = i;</span><br><span class="line">                r = r+<span class="number">1</span>;</span><br><span class="line">                <span class="keyword">while</span> (r&lt;n&amp;&amp;s[r]==s[r-l]) r++;</span><br><span class="line">                r--;</span><br><span class="line">                ans[i]=r-l+<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一种更优雅的实现</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">Z</span><span class="params">(string s)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> n = s.<span class="built_in">size</span>();</span><br><span class="line">    <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ans</span><span class="params">(n,<span class="number">0</span>)</span></span>;</span><br><span class="line">    ans[<span class="number">0</span>]=n;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(i&lt;n)&#123;</span><br><span class="line">        <span class="keyword">if</span> (i&lt;=r)&#123;</span><br><span class="line">            ans[i]=<span class="built_in">min</span>(ans[i-l],r-i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(i+ans[i]&lt;n&amp;&amp;word[ans[i]]==word[i+ans[i]])&#123;</span><br><span class="line">            l = i;r=i+ans[i];ans[i]++;</span><br><span class="line">        &#125;</span><br><span class="line">        ans[i]=r-l+<span class="number">1</span>;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-time-to-revert-word-to-initial-state-ii/description/">100203. 将单词恢复初始状态所需的最短时间 II - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sum-of-scores-of-built-strings/description/">2223. 构造字符串的总得分和 - 力扣（LeetCode）</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/16/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912024-01-16/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -412,10 +513,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2024-01-07 19:31:49 / 修改时间：19:39:02" itemprop="dateCreated datePublished" datetime="2024-01-07T19:31:49+08:00">2024-01-07</time>
+              <time title="创建时间：2024-01-07 19:31:49" itemprop="dateCreated datePublished" datetime="2024-01-07T19:31:49+08:00">2024-01-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-26 14:19:36" itemprop="dateModified" datetime="2024-01-26T14:19:36+08:00">2024-01-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -432,7 +539,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>277</span>
+              <span>293</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -453,7 +560,7 @@
       
           <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>通常用来解决关于连续子串或者子数组的问题。</p>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>维护住一个<code>[l,r]</code>的区间。每次都把<code>r</code>试探性地自增，这时区间可能就不再满足题目条件了。这时候需要通过调整<code>l</code>来将区间重新变得满足条件。这个调整通常是<code>l</code>的自增。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line"><span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line"><span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n&amp;&amp;...) r++;</span><br><span class="line">    update_ans;</span><br><span class="line">    r++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line"><span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line"><span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n&amp;&amp;满足条件)&#123;</span><br><span class="line">        update_ans;</span><br><span class="line">        l++;</span><br><span class="line">    &#125;</span><br><span class="line">    r++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/?envType=study-plan-v2&amp;envId=top-interview-150">209. 长度最小的子数组 - 力扣（LeetCode）</a></p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/?envType=study-plan-v2&amp;envId=top-interview-150">3. 无重复字符的最长子串 - 力扣（LeetCode）</a></p>
 
@@ -506,7 +613,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-08 11:53:37" itemprop="dateModified" datetime="2024-01-08T11:53:37+08:00">2024-01-08</time>
+                <time title="修改时间：2024-02-04 09:41:25" itemprop="dateModified" datetime="2024-02-04T09:41:25+08:00">2024-02-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -524,7 +631,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>284</span>
+              <span>484</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -545,8 +652,10 @@
       
           <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>主要用于在一次循环中寻找多个符合条件的答案。</p>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>外层循环负责准备工作和更新答案，内层循环负责寻找答案。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line">    <span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">        l = r; <span class="comment">// 并非刻板，具体要看l和r的含义，此处l表示第一个没有查看的位置。</span></span><br><span class="line">        <span class="keyword">while</span> (r&lt;n&amp;&amp;...) r++; <span class="comment">// 一般是寻找最长的符合条件的[l,r]</span></span><br><span class="line">        update_ans;</span><br><span class="line">        r++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line">    <span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line">    <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">        l = r; <span class="comment">// 并非刻板，具体要看l和r的含义，此处l表示第一个没有查看的位置。</span></span><br><span class="line">        <span class="keyword">while</span> (r&lt;n&amp;&amp;...) r++; <span class="comment">// 一般是寻找最长的符合条件的[l,r]</span></span><br><span class="line">        update_ans;</span><br><span class="line">        r++;<span class="comment">// 并非必须，主要取决于r的更新模式</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line">    <span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line">    <span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">        <span class="type">int</span> now = a[r];</span><br><span class="line">        <span class="keyword">while</span> (r&lt;n&amp;&amp;now==a[r]) r++;</span><br><span class="line">        update_ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-consecutive-sequence/description/?envType=study-plan-v2&amp;envId=top-interview-150">128. 最长连续序列 - 力扣（LeetCode）</a></p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/contest/weekly-contest-382/problems/number-of-changing-keys/">按键变更的次数 - 力扣 (LeetCode) 竞赛</a></p>
 
       
     </div>
@@ -1004,104 +1113,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-12-9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/image.jpg">
-      <meta itemprop="name" content="Kevin.">
-      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-12-9/" class="post-title-link" itemprop="url">【日常】2023-12-9</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-12-09 15:31:23 / 修改时间：16:31:01" itemprop="dateCreated datePublished" datetime="2023-12-09T15:31:23+08:00">2023-12-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">日常</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>昨天和H交谈的时候得知她妈妈的要求已经从“少和我一起玩”变成“不能和我一起玩”了。</p>
-<p>昨晚入睡很艰难，大概是因为颧骨旁边的新长出的痘痘太痛，加之蚊子留在附近的包又痛又痒。</p>
-<p>半梦半醒之间，我似乎想到了许多东西。五年前我跟H分开，总结来说的确是事发突然——在某个周日的傍晚，我照常去她的座位上找到她，和她有一搭没一搭地聊天。突然她抬起头跟我说，她家里不再让她和我交流，指着我的座位跟我说，“等你回到你的座位上，我们就是陌生人了。”那时我还幼稚，拉着她的手，求她多陪我一会儿，还追着她问原因。结果当然是，没有原因。后来，我发现我的好友列表里不再有H，生活中也不再有了。</p>
-<p>过了大概一周，轮到我班级演讲，具体内容我已然忘记，不过结尾的确是我精心造就，因此记忆犹新——我喜欢童话，并非因为童话故事洋溢着美好，而是因为童话总会有一个结局。但很可惜，人总要回到现实。现实不像童话，每每给你一个确定的结局，或好或坏。现实只会给你现实。大梦初醒，茫然四顾，只剩现实——现实如此，如此现实。演讲之后，被语文老师说“十分颓唐”，不过那不重要。我的确是讲给H听的，目的大概是诉说我的无奈。至于H听了没有，也不重要。因为她没办法隔着父母老师铸就的屏障告诉我她的想法。</p>
-<p>想到这些，我似乎一下子意识到，很多东西都是急转直下，没有预兆，也观测不到理由。我的感情似乎往往被一股强大的外力所影响，这让我感到有些无奈。</p>
-<p>以前，H的安全感很薄弱——第一天在一起的时候就跟我说“每一次见面都当成最后一次”。每次告别前夕，她总会躺在床上默默流泪。这时，我往往轻轻抱着她，再慢慢摸着她的小脑袋安慰她，好让她觉得我们的感情并非昙花一现，好让她相信我们还会有很长很长的未来。时间已经快过去两个半月了，她似乎逐渐相信这段感情可以越走越远，相信“每一次见面后都会有下次”，相信每一次抛给我的情绪都会被接住。在稳中向好的当下，似乎这股外力要将美好的愿景全部打碎。“下次”，还会有吗？这已经不是我能掌控的了。如果变成网友，要怎么定时给她加buff呢？一个温暖的拥抱就能安抚下来的情绪，隔着屏幕要怎么让她平复呢？我感到有些无助。</p>
-<p>这怪不了谁，没有人有错——她的妈妈只是想保护自己的孩子，她也仅仅是被要求听妈妈的话罢了。看起来，我更像是反派才对。</p>
-<p>H是很爱我的——她经常想到以后同居的时候温馨的生活画面，也常常跟我说根本无法想象要是我一直在她身边她会有多幸福。我也很高兴这次她能跟我站在一边，想要和我见面。不过脑子里总能浮现出这样的场景：一段时间后，H像五年前一样，拉着我的手说，“没办法，不行的。”</p>
-<p>一想到这个场景，我便感到愧疚和难过：我以前那么幼稚，拉着她的手不放，还要刨根问底，一定给了她不小压力吧。现在呢？我能做到成熟一些吗？我不知道。大概需要很长时间吧。</p>
-<p>要是上次见面的时候，再多给她一些安全感就好了。如果还有机会的话，每次就当成最后一次吧。</p>
-<p>没想到直到现在我也会因为难过导致的胸闷而昏过去。上次这样大概已经是七年前了吧。</p>
-<p>感谢H能够这么相信我，还愿意与我为伴。</p>
-<p>希望看到这个的朋友感情顺利，不必在意我这失重的落叶。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1169,7 +1184,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
