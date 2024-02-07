@@ -205,6 +205,107 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202303-3-LDAP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/24/%E3%80%90CSP%E3%80%91202303-3-LDAP/" class="post-title-link" itemprop="url">【CSP】202303-3 LDAP</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-24 17:14:36 / 修改时间：18:52:43" itemprop="dateCreated datePublished" datetime="2023-11-24T17:14:36+08:00">2023-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSP/" itemprop="url" rel="index"><span itemprop="name">CSP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h1><p>见 <a target="_blank" rel="noopener" href="http://118.190.20.162/view.page?gpid=T163">http://118.190.20.162/view.page?gpid=T163</a></p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><p>需要存储用户，用户有两个属性，分别是<code>id</code>和<code>attribute</code>映射。</p>
+<p>故所有用户的数据如此存储即可：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">User</span> &#123;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; att;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;User&gt; users;</span><br></pre></td></tr></table></figure>
+<h2 id="输入处理"><a href="#输入处理" class="headerlink" title="输入处理"></a>输入处理</h2><p>在输入用户信息时，输入描述为“每行有若干用空格分隔的整数”</p>
+<p>因此，需要用到<code>&lt;sstream&gt;</code>中的<code>stringstream</code>类。具体用法见往期blog.</p>
+<p>需要略微注意的是<code>getline(str,istream)</code>是在头文件<code>&lt;string&gt;</code>中的，不是在<code>iostream</code>中的。且<code>getline</code>会扔掉结尾的换行符，所以连续的<code>getline</code>之间不需要插入<code>getchar</code></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">	string s;</span><br><span class="line">	<span class="built_in">getline</span>(cin,s);</span><br><span class="line">	<span class="function">stringstream <span class="title">ss</span><span class="params">(s)</span></span>;</span><br><span class="line">	<span class="type">int</span> t;</span><br><span class="line">	<span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (ss &gt;&gt; t) &#123;</span><br><span class="line">		<span class="keyword">if</span> (cnt == <span class="number">0</span>) &#123;</span><br><span class="line">			users[i].id = t;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (cnt == <span class="number">1</span>) &#123;</span><br><span class="line">			cnt++;</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="type">int</span> t2;</span><br><span class="line">			ss &gt;&gt; t2;</span><br><span class="line">			users[i].att[t] = t2;</span><br><span class="line">		&#125;</span><br><span class="line">		cnt++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="表达式求值"><a href="#表达式求值" class="headerlink" title="表达式求值"></a>表达式求值</h2><p>由于用CFG表示，所以大概率需要递归求解。</p>
+<h3 id="结果存储"><a href="#结果存储" class="headerlink" title="结果存储"></a>结果存储</h3><p>每次运算的结果其实就是一个合法用户索引的集合。为了方便结果的运算，可以使用<code>bitset</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line">bitset&lt;2500&gt; ans; <span class="comment">// 注意尖括号内必须是常量</span></span><br><span class="line"><span class="function">bitset&lt;2500&gt; <span class="title">ans</span><span class="params">(<span class="string">&quot;110011&quot;</span>)</span></span>; <span class="comment">// 可以用字符串初始化，结果为&quot;0000...110011&quot;</span></span><br><span class="line"><span class="comment">// bitset支持&lt;&lt; &amp; | ^ &gt;&gt;位运算</span></span><br><span class="line">ans[<span class="number">0</span>]=<span class="number">1</span>; <span class="comment">// 这个索引是从高位往低位数的</span></span><br></pre></td></tr></table></figure>
+<h3 id="求值"><a href="#求值" class="headerlink" title="求值"></a>求值</h3><ol>
+<li>base case：<code>x:y</code>或<code>x~y</code>，直接利用<code>find</code>找到分隔符，然后用<code>stoi</code>找到操作数，再进行查找即可。</li>
+<li>logic expr：<code>op(expr)(expr)</code>，先处理括号，然后递归求解，将结果apply<code>op</code>即可。</li>
+</ol>
+<h1 id="遇到的弱智bug"><a href="#遇到的弱智bug" class="headerlink" title="遇到的弱智bug"></a>遇到的弱智bug</h1><ol>
+<li>忘了将结果排序。<code>sort(first,last)</code></li>
+<li>忘了<code>str.find()</code>返回值可能是-1</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unordered_map&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;bitset&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">User</span> &#123;</span><br><span class="line">	<span class="type">int</span> id;</span><br><span class="line">	unordered_map&lt;<span class="type">int</span>, <span class="type">int</span>&gt; att;</span><br><span class="line">&#125;;</span><br><span class="line">vector&lt;User&gt; users;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="function">bitset&lt;2500&gt; <span class="title">solve</span><span class="params">(string exp)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (exp.<span class="built_in">empty</span>()) <span class="keyword">return</span> <span class="built_in">bitset</span>&lt;<span class="number">2500</span>&gt;();</span><br><span class="line">	<span class="keyword">if</span> (exp[<span class="number">0</span>] == <span class="string">&#x27;&amp;&#x27;</span> || exp[<span class="number">0</span>] == <span class="string">&#x27;|&#x27;</span>) &#123;</span><br><span class="line">		<span class="type">int</span> l = <span class="number">1</span>, r = <span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> i;</span><br><span class="line">		<span class="keyword">for</span> (i = <span class="number">2</span>;; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (exp[i] == <span class="string">&#x27;(&#x27;</span>) l++;</span><br><span class="line">			<span class="keyword">if</span> (exp[i] == <span class="string">&#x27;)&#x27;</span>) r++;</span><br><span class="line">			<span class="keyword">if</span> (l == r) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> fl = <span class="number">2</span>, fr = i - <span class="number">1</span>;</span><br><span class="line">		l = <span class="number">1</span>, r = <span class="number">0</span>;</span><br><span class="line">		<span class="type">int</span> ll = i + <span class="number">2</span>;</span><br><span class="line">		<span class="keyword">for</span> (i=i+<span class="number">2</span>;; i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (exp[i] == <span class="string">&#x27;(&#x27;</span>) l++;</span><br><span class="line">			<span class="keyword">if</span> (exp[i] == <span class="string">&#x27;)&#x27;</span>) r++;</span><br><span class="line">			<span class="keyword">if</span> (l == r) <span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">int</span> lr = i - <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span> (exp[<span class="number">0</span>] == <span class="string">&#x27;|&#x27;</span>)</span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">solve</span>(exp.<span class="built_in">substr</span>(fl, fr - fl + <span class="number">1</span>)) | <span class="built_in">solve</span>(exp.<span class="built_in">substr</span>(ll, lr - ll + <span class="number">1</span>));</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="keyword">return</span> <span class="built_in">solve</span>(exp.<span class="built_in">substr</span>(fl, fr - fl + <span class="number">1</span>)) &amp; <span class="built_in">solve</span>(exp.<span class="built_in">substr</span>(ll, lr - ll + <span class="number">1</span>));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		bitset&lt;<span class="number">2500</span>&gt; ans;</span><br><span class="line">		<span class="type">int</span> maohao = exp.<span class="built_in">find</span>(<span class="string">&#x27;:&#x27;</span>);</span><br><span class="line">		<span class="keyword">if</span> (maohao != <span class="number">-1</span>) &#123;</span><br><span class="line">			<span class="type">int</span> att = <span class="built_in">atoi</span>(exp.<span class="built_in">substr</span>(<span class="number">0</span>, maohao).<span class="built_in">c_str</span>());</span><br><span class="line">			<span class="type">int</span> val = <span class="built_in">atoi</span>(exp.<span class="built_in">substr</span>(maohao + <span class="number">1</span>).<span class="built_in">c_str</span>());</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; users.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (users[i].att.<span class="built_in">find</span>(att) != users[i].att.<span class="built_in">end</span>() &amp;&amp; users[i].att[att] == val) &#123;</span><br><span class="line">					ans[i] = <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="type">int</span> fan = exp.<span class="built_in">find</span>(<span class="string">&#x27;~&#x27;</span>);</span><br><span class="line">			<span class="type">int</span> att = <span class="built_in">atoi</span>(exp.<span class="built_in">substr</span>(<span class="number">0</span>, fan).<span class="built_in">c_str</span>());</span><br><span class="line">			<span class="type">int</span> val = <span class="built_in">atoi</span>(exp.<span class="built_in">substr</span>(fan + <span class="number">1</span>).<span class="built_in">c_str</span>());</span><br><span class="line">			<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; users.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">				<span class="keyword">if</span> (users[i].att.<span class="built_in">find</span>(att) != users[i].att.<span class="built_in">end</span>() &amp;&amp; users[i].att[att] != val) &#123;</span><br><span class="line">					ans[i] = <span class="number">1</span>;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ans;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; n;</span><br><span class="line">	users = <span class="built_in">vector</span>&lt;User&gt;(n);</span><br><span class="line">	<span class="built_in">getchar</span>();</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		string s;</span><br><span class="line">		<span class="built_in">getline</span>(cin,s);</span><br><span class="line">		<span class="function">stringstream <span class="title">ss</span><span class="params">(s)</span></span>;</span><br><span class="line">		<span class="type">int</span> t;</span><br><span class="line">		<span class="type">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span> (ss &gt;&gt; t) &#123;</span><br><span class="line">			<span class="keyword">if</span> (cnt == <span class="number">0</span>) &#123;</span><br><span class="line">				users[i].id = t;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span> (cnt == <span class="number">1</span>) &#123;</span><br><span class="line">				cnt++;</span><br><span class="line">				<span class="keyword">continue</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				<span class="type">int</span> t2;</span><br><span class="line">				ss &gt;&gt; t2;</span><br><span class="line">				users[i].att[t] = t2;</span><br><span class="line">			&#125;</span><br><span class="line">			cnt++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> m;</span><br><span class="line">	cin &gt;&gt; m;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">		string exp;</span><br><span class="line">		cin &gt;&gt; exp;</span><br><span class="line">		bitset&lt;2500&gt; ans = <span class="built_in">solve</span>(exp);</span><br><span class="line">		vector&lt;<span class="type">int</span>&gt; out;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; users.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (ans[i] == <span class="number">1</span>) &#123;</span><br><span class="line">				out.<span class="built_in">push_back</span>(users[i].id);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">sort</span>(out.<span class="built_in">begin</span>(), out.<span class="built_in">end</span>(), [](<span class="type">int</span> x, <span class="type">int</span> y) &#123;<span class="keyword">return</span> x &lt; y; &#125;);</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; out.<span class="built_in">size</span>(); i++) &#123;</span><br><span class="line">			cout &lt;&lt; out[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		cout &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/%E3%80%90%E4%BA%BA%E7%B1%BB%E8%A7%82%E5%AF%9F%E6%97%A5%E8%AE%B0%E3%80%912023-11-22/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1190,109 +1291,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/image.jpg">
-      <meta itemprop="name" content="Kevin.">
-      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-4/" class="post-title-link" itemprop="url">【日常】2023-11-4</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-11-09 14:34:24 / 修改时间：17:25:20" itemprop="dateCreated datePublished" datetime="2023-11-09T14:34:24+08:00">2023-11-09</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">日常</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><strong>以流水账的形式记录一些故事</strong></p>
-<p>​    很早以前，和H约好去迪士尼，时间定在了11月5号。</p>
-<p>​    11月4号，我到了车站，在很远的地方就看到了H——那个像小孩子一样一只手扶着行李箱，一只手叉着腰的女孩。她时不时晃晃头，尝试着捕捉她一直等待着的那个人。可惜，她的目光并没我想象中的锐利，她并没能发现我，因此我也就无从施展我从别人身上学来的小技巧——看到对方之后假装扫视一下对方周围的环境，最后目光聚焦在她身上对着她笑笑。要是能用上就好了，没准她会很开心。</p>
-<p>​    后来我们一同去逛了世界商场，买了些东西。回到酒店时已经不早了。H的妈妈给她打了一个不短的电话，而我则在床上睡着了。醒来时，她向我说她们对话的内容，详情我已经忘却大半，只记得听完她说的话之后我心里空落落的。</p>
-<p>​    后来，我们褪去衣物躺在床上，发生了一段令人难过的对话。</p>
-<p>​    H对我说，其实在恋爱中女生和男生很不一样：女生往往只需要得到男生本人的认可，而男生要面对的却不止女生一个人，还有她的家人、闺蜜、许许多多的朋友。她又开口，说如果她闺蜜的男友做出了什么让她闺蜜伤心的事情，不管这件事是对还是错，她都会帮着她闺蜜骂男友的。</p>
-<p>​    其实这只是立场的作用罢了，人总会本能地支持自己亲近的人。我不置可否，毕竟是我我也会这么做。只不过额外的，我可能更倾向于事物本身的对错——当然在此之前需要安抚“受害者”的情绪罢了。不过在那时那刻我切身听到那些话时，我总觉得被子外面的冷气格外肆虐，仿佛又回到了多年前的那个冬天。</p>
-<p>​    “我不会拒绝的父母的要求的。平时他们对我的决定都不怎么过问，事事都听我的。但等到他们真正下了通牒，我就清楚这些是命令——他们叫我不要怎么样，我不会想着拒绝。所以说这对你来说很不公平，因为你能决定你自己的事情，但我不能。”</p>
-<p>​    对啊，的确很不公平，那又如何呢。我睁开眼，看着周围暗下去的一切。民宿的窗帘遮光效果并不好，以至于我还能看到轻松跃过窗帘的朦胧的月光。或许是这微弱光芒引发了我的幻觉，我觉得身前立着几个高大的影子，七嘴八舌地讨论我的质量，以决定我的价格。</p>
-<p>​    “或许男生确实容易沦为被选择被比较的那一方吧，”我鬼使神差地说，可能是因为刚刚的幻觉吧，我有一种被摆在天平上比较的感觉，“我们因为缘分和喜欢与自己的恋人在一起，然后却要经过恋人身边的无数人的考验。最后在一层一层的比较中，感情的决定权早就不在相恋的人彼此手上了。”</p>
-<p>​    “他们叫我不要怎么样，我没办法拒绝”在我脑海中横冲直撞，让我感到有些晕眩，让我感到有些委屈。我压住自己的情绪，缓缓开口：“如果有一天，因为你身边的人，我们分开了……”我顿了顿，尝试着把眼泪困在眼眶里，随后说：“我也可以接受。”说来也是，我除了接受真的有其他选择吗？</p>
-<p>​    我转过头去，好让自己的情绪更稳定些。只是出乎我意料的，她哭得很厉害——她身体不停颤抖，下巴不受控制地下移，好让她撕心裂肺的哭声顺利从嘴巴里传出来。我竭力按住她在空中摆动的双手，因为我只知道如果我不这么做，这双手只会打在她自己的脸上。我贴着她的有些冰凉的身体，试图让她暖一点，然后用尽可能温柔的声音在她耳边重复“我在呢宝贝”。</p>
-<p>​    其实人可能就是这样，面对所爱之人的哭泣，自己再怎么难受都会忘掉自己的情绪，转而去安慰对方。因为自己的委屈就像是树底的阴影，而爱人的难过可能就是被愁云笼罩的大地。</p>
-<p>​    过了几分钟，怀里的H停止了哭泣，我问了问原因，她啜泣道：“过了这么久了，我终于相信你会一直陪着我，终于有了一点安全感。现在你却跟我说，‘如果因为其他因素分开我也可以接受’，呜呜，我就完全不能接受。”我感到有些自责，因为我并没能正确表达出我的意思。我或许会因此崩溃，但在她面前，我说不出来这种话，于是“可以接受”便成为了最好的托词——至少它看上去没有“崩溃”那么软弱。“因为你说你没办法拒绝他们的要求，如果有一天，在比较当中，我就是落选的那个。你没有办法拒绝。我只能接受。”我立马解释道。</p>
-<p>​    随后她嘟囔了一句简短的话，遗憾的是我并没有听清楚她的回答。</p>
-<p>​    后来她不再哭了，因为我开始哭了。我不知道自己为什么会哭，可能是自己眼前的那些影子在不断地议论我的价格，指摘我的质量问题，同时批评我的生产厂家，或许我因此感到很委屈。我已经经历过无数次的筛选和比较，此刻站在自己的恋人面前，我却要目睹她把选择的权利交于他人之手。</p>
-<p>​    “其实啊，她们所谓的比较，只会比较现在的人和之前的人。比如‘你现在这个男友可比以前那个好多啦’。或者她们只会比较不同的人的老公，比较房车工资之类的，谁会在意谁读了多少书呢。大家其实都是很世俗的人。“</p>
-<p>​    那一刻，我被一双大手从天平上拿了下来，我不再是谁的竞争对手，也许也不会再以货物的形式和别人比来比去了。</p>
-<p>​    “这样的话可能我唯一的优点都不会被比较啦。”我打趣道。</p>
-<p>​    “你的优点会在我身上体现出来的。跟你在一起之后，我的室友一直在嚷嚷着‘呀！上次H坐在书桌前两个小时一动不动都是什么时候啦？’”</p>
-<p>​    我很喜欢她躺在床上正对着我说话，我感到自己被在乎着。窗外的月华渐渐黯淡下来，透过窗帘的光芒也所剩无几了。我拥着她，我们的胸膛毫无阻隔地紧紧贴着，感受着彼此的心跳。</p>
-<p>​    “她身上好暖，”我想，“我们会这样解决一个又一个问题的。”</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1364,7 +1362,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1377,7 +1375,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

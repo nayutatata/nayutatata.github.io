@@ -205,6 +205,124 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/07/%E3%80%90LC%E3%80%91%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/07/%E3%80%90LC%E3%80%91%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">【LC】单调队列</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-07 12:43:07 / 修改时间：13:16:02" itemprop="dateCreated datePublished" datetime="2024-02-07T12:43:07+08:00">2024-02-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LC/" itemprop="url" rel="index"><span itemprop="name">LC</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>总体来说，单调队列是通过一次遍历求带限制的子数组中的最值的手段。</p>
+<p>限制包括：</p>
+<ul>
+<li>子数组的大小。比如限制子数组为$[l,r]$.也可以是固定大小。</li>
+<li>子数组中某一个值的差值。</li>
+</ul>
+<p>限制需要满足这样一个条件：</p>
+<p>先来的一定会先淘汰</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
+<li>及时去除无用数据</li>
+<li>保持队列的单调性</li>
+</ul>
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><h2 id="以大小为k的滑动窗口最大值为例"><a href="#以大小为k的滑动窗口最大值为例" class="headerlink" title="以大小为k的滑动窗口最大值为例"></a>以大小为k的滑动窗口最大值为例</h2><ul>
+<li><p>入队条件：</p>
+<p>现在我们的目光里只有$[l,r-1]$中的数，当新来的数$x$大于区间中的数时，那么区间中的数一定不可能是$[l,r]$的最大值，因此需要把区间中的数弹出。但是区间中比$x$大的数是有可能称为$[l,r]$以及以后的区间的最大值的，所以需要留住。由此，我们可以得出一个结论：我们需要维持队列单调递减，并且队头就是我们要求的区间的最大值的索引。</p>
+</li>
+<li><p>出队条件：</p>
+<p>在待求区间之外的值肯定不会作为答案，因此当$l$更新时，将队头和$l$比较即可。</p>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line"><span class="type">int</span> k;</span><br><span class="line"><span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line"><span class="type">int</span> l = <span class="number">0</span>, r = <span class="number">0</span>;</span><br><span class="line">deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line"><span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">    <span class="comment">// 入队</span></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;a[q.<span class="built_in">back</span>()]&lt;=a[r])&#123;</span><br><span class="line">        q.<span class="built_in">pop_back</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    q.<span class="built_in">push_back</span>(r);</span><br><span class="line">    <span class="comment">// 出队,因为这里只有一个元素入队,所以最多也只会有一个元素被淘汰,但是我们还是用while作为一个完整模板</span></span><br><span class="line">    <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;r-l+<span class="number">1</span>&gt;k)&#123;</span><br><span class="line">        l++;</span><br><span class="line">        <span class="keyword">if</span> (q.<span class="built_in">front</span>()&lt;l) q.<span class="built_in">pop_front</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 更新答案</span></span><br><span class="line">    <span class="keyword">if</span> (l&gt;=k)&#123;</span><br><span class="line">        ans.<span class="built_in">push_back</span>(a[q.<span class="built_in">front</span>()]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><h2 id="固定大小的滑动窗口最大值"><a href="#固定大小的滑动窗口最大值" class="headerlink" title="固定大小的滑动窗口最大值"></a>固定大小的滑动窗口最大值</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/sliding-window-maximum/">239. 滑动窗口最大值 - 力扣（LeetCode）</a></p>
+<h3 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h3><p>同上模板</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">maxSlidingWindow</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; nums, <span class="type">int</span> k)</span> </span>&#123;</span><br><span class="line">    deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">    <span class="type">int</span> n=nums.<span class="built_in">size</span>();</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; ans;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="comment">// 入队</span></span><br><span class="line">    <span class="keyword">while</span> (!q.<span class="built_in">empty</span>()&amp;&amp;nums[q.<span class="built_in">back</span>()]&lt;=nums[i])&#123;</span><br><span class="line">            q.<span class="built_in">pop_back</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        q.<span class="built_in">push_back</span>(i);</span><br><span class="line">        <span class="comment">// 出队</span></span><br><span class="line">        <span class="keyword">if</span> (q.<span class="built_in">front</span>()&lt;=i-k) q.<span class="built_in">pop_front</span>();</span><br><span class="line">        <span class="comment">// 更新答案</span></span><br><span class="line">        <span class="keyword">if</span> (i&gt;=k<span class="number">-1</span>)&#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(nums[q.<span class="built_in">front</span>()]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="不定长滑动窗口"><a href="#不定长滑动窗口" class="headerlink" title="不定长滑动窗口"></a>不定长滑动窗口</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-number-of-robots-within-budget/">2398. 预算内的最多机器人数目 - 力扣（LeetCode）</a></p>
+<h3 id="题目要求-1"><a href="#题目要求-1" class="headerlink" title="题目要求"></a>题目要求</h3><p>给定两个数组<code>chargeTimes</code>和<code>runningCosts</code>.对于数字<code>k</code>来说，<code>k</code>在区间<code>[l,r]</code>的代价为<code>cost=max(chargeTimes)+k*sum(runningCosts)</code>.现在限定一个<code>budget</code>，求满足使得对应的<code>cost</code>不超过<code>budget</code>的最大的<code>k</code>.</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>对于每个给定的区间$[l,r]$，所求的值为：</p>
+<ul>
+<li>区间的最大值，用单调队列解决</li>
+<li>区间内的和，可以累加，也可以预处理前缀和</li>
+</ul>
+<p>这又是个区间问题，所以是滑动窗口+单调队列</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">maximumRobots</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; chargeTimes, vector&lt;<span class="type">int</span>&gt;&amp; runningCosts, <span class="type">long</span> <span class="type">long</span> budget)</span> </span>&#123;</span><br><span class="line">   <span class="type">int</span> n = chargeTimes.<span class="built_in">size</span>();</span><br><span class="line">   <span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line">   <span class="type">long</span> <span class="type">long</span> sum = <span class="number">0</span>;</span><br><span class="line">   <span class="type">int</span> ans=<span class="number">0</span>;</span><br><span class="line">   deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">   <span class="keyword">while</span>(r&lt;n)&#123;</span><br><span class="line">       sum+=runningCosts[r];</span><br><span class="line">       <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;chargeTimes[q.<span class="built_in">back</span>()]&lt;=chargeTimes[r])&#123;</span><br><span class="line">           q.<span class="built_in">pop_back</span>();</span><br><span class="line">       &#125;</span><br><span class="line">       q.<span class="built_in">push_back</span>(r);</span><br><span class="line">       <span class="keyword">while</span>(l&lt;=r&amp;&amp;(r-l+<span class="number">1</span>)*sum+chargeTimes[q.<span class="built_in">front</span>()]&gt;budget)&#123;</span><br><span class="line">           l++;</span><br><span class="line">           <span class="keyword">if</span> (q.<span class="built_in">front</span>()&lt;l) q.<span class="built_in">pop_front</span>();</span><br><span class="line">           sum-=runningCosts[l<span class="number">-1</span>];</span><br><span class="line">       &#125;</span><br><span class="line">       ans = <span class="built_in">max</span>(ans,r-l+<span class="number">1</span>);</span><br><span class="line">       r++;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一种方式是，对于每一个指定的k，都分析是否存在满足条件的区间，最终二分答案，那么就转换成了固定长滑动窗口了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">maximumRobots</span><span class="params">(vector&lt;<span class="type">int</span>&gt;&amp; chargeTimes, vector&lt;<span class="type">int</span>&gt;&amp; runningCosts, <span class="type">long</span> <span class="type">long</span> budget)</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> n = chargeTimes.<span class="built_in">size</span>();</span><br><span class="line">    <span class="type">int</span> l = <span class="number">0</span>, r = n;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">long</span> <span class="type">long</span>&gt; <span class="title">pres</span><span class="params">(n+<span class="number">1</span>,<span class="number">0</span>)</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        pres[i]=runningCosts[i<span class="number">-1</span>]+pres[i<span class="number">-1</span>]; <span class="comment">// pres[i]=a0+..+ai-1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">auto</span> check = [&amp;](<span class="type">int</span> k)&#123;<span class="comment">// k个到底能不能做</span></span><br><span class="line">        <span class="comment">// k为固定的滑动窗口，我要求每个窗口的runningcost之和以及chargeTimes的最大值</span></span><br><span class="line">        <span class="keyword">if</span> (k==<span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        deque&lt;<span class="type">int</span>&gt; q;</span><br><span class="line">        <span class="type">int</span> r=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(r&lt;n)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!q.<span class="built_in">empty</span>()&amp;&amp;chargeTimes[q.<span class="built_in">back</span>()]&lt;=chargeTimes[r])&#123;</span><br><span class="line">                q.<span class="built_in">pop_back</span>();</span><br><span class="line">            &#125;</span><br><span class="line">            q.<span class="built_in">push_back</span>(r);</span><br><span class="line">            <span class="keyword">if</span> (q.<span class="built_in">front</span>()&lt;r-k+<span class="number">1</span>) q.<span class="built_in">pop_front</span>();</span><br><span class="line">            <span class="keyword">if</span> (r&gt;=k<span class="number">-1</span>)&#123;</span><br><span class="line">                <span class="type">long</span> <span class="type">long</span> c = chargeTimes[q.<span class="built_in">front</span>()]+k*(pres[r+<span class="number">1</span>]-pres[r-k+<span class="number">1</span>]);</span><br><span class="line">                <span class="keyword">if</span> (c&lt;=budget) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            r++;</span><br><span class="line">    	&#125;</span><br><span class="line">    	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">// 左侧表示小于等于答案，右边表示大于答案.</span></span><br><span class="line">    <span class="keyword">while</span>(l&lt;=r)&#123;</span><br><span class="line">        <span class="type">int</span> mid = l+(r-l)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">check</span>(mid)) l=mid+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> r=mid<span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="和至少为k的最短子数组"><a href="#和至少为k的最短子数组" class="headerlink" title="和至少为k的最短子数组"></a>和至少为k的最短子数组</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/shortest-subarray-with-sum-at-least-k/description/">862. 和至少为 K 的最短子数组 - 力扣（LeetCode）</a></p>
+<h2 id="不等式限制的最大值"><a href="#不等式限制的最大值" class="headerlink" title="不等式限制的最大值"></a>不等式限制的最大值</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/max-value-of-equation/description/">1499. 满足不等式的最大值 - 力扣（LeetCode）</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/04/%E3%80%90LC%E3%80%91Z-algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -521,7 +639,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-26 14:19:36" itemprop="dateModified" datetime="2024-01-26T14:19:36+08:00">2024-01-26</time>
+                <time title="修改时间：2024-02-07 12:43:52" itemprop="dateModified" datetime="2024-02-07T12:43:52+08:00">2024-02-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -539,7 +657,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>293</span>
+              <span>294</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -560,7 +678,7 @@
       
           <h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><p>通常用来解决关于连续子串或者子数组的问题。</p>
 <h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>维护住一个<code>[l,r]</code>的区间。每次都把<code>r</code>试探性地自增，这时区间可能就不再满足题目条件了。这时候需要通过调整<code>l</code>来将区间重新变得满足条件。这个调整通常是<code>l</code>的自增。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line"><span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line"><span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n&amp;&amp;满足条件)&#123;</span><br><span class="line">        update_ans;</span><br><span class="line">        l++;</span><br><span class="line">    &#125;</span><br><span class="line">    r++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;<span class="type">int</span>&gt; a;</span><br><span class="line"><span class="type">int</span> n = a.<span class="built_in">size</span>();</span><br><span class="line"><span class="type">int</span> l=<span class="number">0</span>,r=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span> (r&lt;n)&#123;</span><br><span class="line">    <span class="keyword">while</span> (r&lt;n&amp;&amp;不满足条件)&#123;</span><br><span class="line">        l++;</span><br><span class="line">    &#125;</span><br><span class="line">    update_ans;</span><br><span class="line">    r++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-size-subarray-sum/?envType=study-plan-v2&amp;envId=top-interview-150">209. 长度最小的子数组 - 力扣（LeetCode）</a></p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-substring-without-repeating-characters/?envType=study-plan-v2&amp;envId=top-interview-150">3. 无重复字符的最长子串 - 力扣（LeetCode）</a></p>
 
@@ -1020,99 +1138,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/19/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91Anaconda-for-linux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/image.jpg">
-      <meta itemprop="name" content="Kevin.">
-      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/19/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91Anaconda-for-linux/" class="post-title-link" itemprop="url">【教程】Anaconda_for_linux</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-12-19 10:58:48 / 修改时间：11:34:49" itemprop="dateCreated datePublished" datetime="2023-12-19T10:58:48+08:00">2023-12-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">教程</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>695</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="下载压缩包"><a href="#下载压缩包" class="headerlink" title="下载压缩包"></a>下载压缩包</h1><p>在<a target="_blank" rel="noopener" href="https://www.anaconda.com/download">Free Download | Anaconda</a>进行安装包的下载即可。</p>
-<p>注意下载过程中会产生<code>.part</code>文件，这说明下载还没有完成，不要乱动这些文件。</p>
-<p><code>Ubuntu20.04</code>下，下载的文件为<code>.sh</code>格式。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p><code>sudo bash &lt;filename&gt;</code>可以直接进入安装。</p>
-<p>值得注意的是，默认的安装路径是<code>/root/anaconda3</code>，但是由于没有普通用户没有办法访问<code>root</code>目录，所以需要对安装目录进行修改。</p>
-<p>将安装目录改为：<code>/home/username/anaconda3</code>即可。这里似乎不能直接用<code>~/anaconda3</code>，所以还是尽量用绝对路径吧。</p>
-<h1 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h1><h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><p>要正常使用<code>conda *</code>命令，需要进行环境变量的配置。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
-<p><strong>注：如果vim后显示文件内容为空，说明不存在这个文件。</strong></p>
-<p>在<code>.bashrc</code>文件的末尾添加<code>export PATH=$PATH:~/anaconda3/bin</code>即可。</p>
-<p>要么重启终端，要么<code>source ~/.bashrc</code>，在当前<code>shell</code>执行<code>.bashrc</code>脚本，激活环境变量。</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">conda init bash <span class="comment"># 初始化</span></span><br><span class="line">conda config --<span class="built_in">set</span> auto_activate_base <span class="literal">false</span> <span class="comment"># 开启终端后自动激活base环境</span></span><br><span class="line">conda create -n &lt;env_name&gt; python==&lt;version&gt; <span class="comment"># 创建环境并指定环境的python版本</span></span><br><span class="line">conda remove -n &lt;env_name&gt; --all <span class="comment"># 删除环境</span></span><br><span class="line">conda activate &lt;env_name&gt; <span class="comment"># 激活环境</span></span><br><span class="line">conda deactivate <span class="comment"># 关闭环境</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1184,7 +1209,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1197,7 +1222,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
