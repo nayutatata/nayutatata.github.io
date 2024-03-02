@@ -931,4 +931,32 @@
         <tag>单调队列</tag>
       </tags>
   </entry>
+  <entry>
+    <title>【教程】virtualbox使用及vscode remote</title>
+    <url>/2024/03/02/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91virtualbox%E4%BD%BF%E7%94%A8%E5%8F%8Avscode-remote/</url>
+    <content><![CDATA[<p>本文旨在梳理vscode利用remote-ssh连接virtualbox虚拟机的过程，并解决途中出现的问题。</p>
+<h1 id="virtualbox的配置"><a href="#virtualbox的配置" class="headerlink" title="virtualbox的配置"></a>virtualbox的配置</h1><h2 id="镜像下载"><a href="#镜像下载" class="headerlink" title="镜像下载"></a>镜像下载</h2><p>根据所选的操作系统的版本，可以直接在对应官网下载对应的<code>.iso</code>镜像文件。</p>
+<p>笔者需要下载的是<code>Ubuntu20.04-amd64</code>，故直接在<a href="https://mirror.nju.edu.cn/ubuntu-releases/20.04/">NJU Mirror</a>下载相应的版本。</p>
+<p>在启动虚拟机时选择对应的镜像即可。</p>
+<h2 id="网络设置"><a href="#网络设置" class="headerlink" title="网络设置"></a>网络设置</h2><p>选择选项”网络地址转换(NAT)”，设置端口转发。</p>
+<p>主机IP为127.0.0.1，主机端口设置一个之前没有被占用的即可。</p>
+<p>子系统IP可以空着，子系统端口选择22，这是ssh的默认端口。</p>
+<h2 id="ssh-server安装"><a href="#ssh-server安装" class="headerlink" title="ssh-server安装"></a>ssh-server安装</h2><p>一般来说，虚拟机上默认安装了ssh-client，但是没有安装ssh-server.</p>
+<p>使用以下命令安装并重启ssh服务</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install openssh-server</span><br><span class="line">sudo service ssh restart</span><br></pre></td></tr></table></figure>
+<h2 id="wget和curl的安装"><a href="#wget和curl的安装" class="headerlink" title="wget和curl的安装"></a>wget和curl的安装</h2><p>由于vscode需要这两个工具连安装vscode服务器，所以要预先在虚拟机上安装工具。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo apt install wget</span><br><span class="line">sudo apt install curl</span><br></pre></td></tr></table></figure>
+<h2 id="验证配置成功"><a href="#验证配置成功" class="headerlink" title="验证配置成功"></a>验证配置成功</h2><p>在windows的shell中输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ssh -p &lt;port&gt; user@localhost <span class="comment"># 这里的port是上文设置的主机端口</span></span><br></pre></td></tr></table></figure>
+<p>我们之前相当于是设置了主机端口和虚拟机端口的映射，因此连接主机的端口就相当于是连接的虚拟机。</p>
+<p>连接主机端口的原因是localhost是主机的ip.</p>
+<h1 id="VS-Code的配置"><a href="#VS-Code的配置" class="headerlink" title="VS Code的配置"></a>VS Code的配置</h1><h2 id="ssh-config"><a href="#ssh-config" class="headerlink" title=".ssh/config"></a>.ssh/config</h2><p>以下是几个关键字的含义：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Host nayuta <span class="comment">#表示ssh连接时所使用的别名，配置好之后点击别名即可直接连接</span></span><br><span class="line">HostName localhost <span class="comment">#表示要连接的主机的ip地址</span></span><br><span class="line">Port <span class="number">3333</span> <span class="comment">#表示要连接的主机的端口</span></span><br><span class="line">User compiler <span class="comment">#表示要连接的主机上的用户</span></span><br></pre></td></tr></table></figure>
+<h2 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h2><p>直接点击配置文件中已经设置好的别名即可。</p>
+<p>过程中会出现”正在设置ssh隧道”的提示，并且可能会很久，重启几次vscode就好。</p>
+]]></content>
+      <categories>
+        <category>教程</category>
+      </categories>
+  </entry>
 </search>

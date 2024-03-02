@@ -205,6 +205,94 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/10/%E3%80%90%E8%BF%87%E7%A8%8B%E8%AE%B0%E5%BD%95%E3%80%91EXCEL%E5%8D%81%E5%AD%97%E5%AE%9A%E4%BD%8D%E7%BA%BF/" class="post-title-link" itemprop="url">【过程记录】EXCEL十字定位线</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-10 12:10:52 / 修改时间：12:22:03" itemprop="dateCreated datePublished" datetime="2023-11-10T12:10:52+08:00">2023-11-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">记录</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>309</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="网络插件"><a href="#网络插件" class="headerlink" title="网络插件"></a>网络插件</h1><p>易用宝：<a target="_blank" rel="noopener" href="http://yyb.excelhome.net/download/">最新版下载 | Excel易用宝 (excelhome.net)</a></p>
+<p>易用宝功能部分需要微信扫码，由于只需要十字定位功能，所以考虑自行实现。</p>
+<h1 id="自行实现"><a href="#自行实现" class="headerlink" title="自行实现"></a>自行实现</h1><h2 id="条件格式"><a href="#条件格式" class="headerlink" title="条件格式"></a>条件格式</h2><p><code>=(CELL(&quot;row&quot;)==ROW()+(CELL(&quot;col&quot;)==COLUMN()))</code></p>
+<p><code>=(CELL(&quot;row&quot;)==ROW()*(CELL(&quot;col&quot;)==COLUMN()))</code></p>
+<h2 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Private Sub Worksheet_SelectionChange(ByVal Target As Range)</span><br><span class="line">    Calculate</span><br><span class="line">End Sub</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h2><p>条件格式的透明度</p>
+<p>条件格式如何形成全局文件</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/09/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -506,7 +594,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

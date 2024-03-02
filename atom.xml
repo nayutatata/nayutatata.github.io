@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2024-02-07T12:41:54.156Z</updated>
+  <updated>2024-03-02T14:08:38.273Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【教程】virtualbox使用及vscode remote</title>
+    <link href="http://example.com/2024/03/02/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91virtualbox%E4%BD%BF%E7%94%A8%E5%8F%8Avscode-remote/"/>
+    <id>http://example.com/2024/03/02/%E3%80%90%E6%95%99%E7%A8%8B%E3%80%91virtualbox%E4%BD%BF%E7%94%A8%E5%8F%8Avscode-remote/</id>
+    <published>2024-03-02T12:21:34.000Z</published>
+    <updated>2024-03-02T14:08:38.273Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;本文旨在梳理vscode利用remote-ssh连接virtualbox虚拟机的过程，并解决途中出现的问题。&lt;/p&gt;
+&lt;h1 id=&quot;virtualbox的配置&quot;&gt;&lt;a href=&quot;#virtualbox的配置&quot; class=&quot;headerlink&quot; title=&quot;virt</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="http://example.com/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>【LC】单调队列</title>
@@ -450,30 +471,6 @@
     <category term="枚举子数组" scheme="http://example.com/tags/%E6%9E%9A%E4%B8%BE%E5%AD%90%E6%95%B0%E7%BB%84/"/>
     
     <category term="背包" scheme="http://example.com/tags/%E8%83%8C%E5%8C%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>【CSP】202212-3</title>
-    <link href="http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/"/>
-    <id>http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/</id>
-    <published>2023-11-24T12:20:25.000Z</published>
-    <updated>2023-11-24T12:31:12.432Z</updated>
-    
-    
-      
-      
-    <summary type="html">&lt;h1 id=&quot;题目要求&quot;&gt;&lt;a href=&quot;#题目要求&quot; class=&quot;headerlink&quot; title=&quot;题目要求&quot;&gt;&lt;/a&gt;题目要求&lt;/h1&gt;&lt;p&gt;见 &lt;a href=&quot;http://118.190.20.162/view.page?gpid=T158&quot;&gt;http://1</summary>
-      
-    
-    
-    
-    <category term="CSP" scheme="http://example.com/categories/CSP/"/>
-    
-    
-    <category term="模拟" scheme="http://example.com/tags/%E6%A8%A1%E6%8B%9F/"/>
-    
-    <category term="蛇形矩阵" scheme="http://example.com/tags/%E8%9B%87%E5%BD%A2%E7%9F%A9%E9%98%B5/"/>
     
   </entry>
   
