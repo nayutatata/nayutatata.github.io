@@ -205,6 +205,103 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/25/%E3%80%90CSP%E3%80%91202209-2-%E4%BD%95%E4%BB%A5%E5%8C%85%E9%82%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/image.jpg">
+      <meta itemprop="name" content="Kevin.">
+      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/25/%E3%80%90CSP%E3%80%91202209-2-%E4%BD%95%E4%BB%A5%E5%8C%85%E9%82%AE/" class="post-title-link" itemprop="url">【CSP】202209-2 何以包邮</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-25 18:01:42 / 修改时间：19:29:14" itemprop="dateCreated datePublished" datetime="2023-11-25T18:01:42+08:00">2023-11-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/CSP/" itemprop="url" rel="index"><span itemprop="name">CSP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题目要求"><a href="#题目要求" class="headerlink" title="题目要求"></a>题目要求</h1><h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><h2 id="枚举子数组"><a href="#枚举子数组" class="headerlink" title="枚举子数组"></a>枚举子数组</h2><p>递归进行枚举，对于当前位置，只有两种可能性：</p>
+<ol>
+<li>要这个商品，那么将价格传给下一层。</li>
+<li>不要这个商品，直接把这一层收到的价格传给下一层。</li>
+</ol>
+<p>直接进行递归即可。</p>
+<h2 id="DP"><a href="#DP" class="headerlink" title="DP"></a>DP</h2><h3 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h3><p>$v[1……n]$是物品的价值，$c[1……n]$是物品的价格，$C$是手上的钱。</p>
+<p>背包问题的实质就是寻找一个子序列$A$，使得$sum(c[A])&lt;C$并且$sum(v[A])$最大。</p>
+<h2 id="转化"><a href="#转化" class="headerlink" title="转化"></a>转化</h2><p>本题的实质相当于是寻找一个子序列$A$，使得$sum(c[A])\geq x$并且$sum(c[A])$最小，符号刚好是相反的。</p>
+<p>那么可以借助商品的总价值$t$进行转化：</p>
+<p>寻找一个子序列$B$，使得$sum(c[B])\leq t-x$并且$sum(c[B])$最大。</p>
+<p>那么，该$B$就可以使得$t-sum(c[B])\geq x$并且$t-sum(c[B])$最小，则$A=U-B$</p>
+<p>背包容量为$t-x$，价值为$c[i]$，价格为$c[i]$</p>
+<p>$dp[i][j]=max(dp[i-1][j],dp[i-1][j-c[i]]+c[i])$</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="枚举子数组-1"><a href="#枚举子数组-1" class="headerlink" title="枚举子数组"></a>枚举子数组</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt;pri;</span><br><span class="line"><span class="type">int</span> ans=<span class="number">0x7fffffff</span>, x, n;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dfs</span><span class="params">(<span class="type">int</span> i,<span class="type">int</span> cost)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (i &gt;= n) &#123;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pri[i] + cost &gt;= x) ans = <span class="built_in">min</span>(pri[i] + cost, ans);</span><br><span class="line">	<span class="built_in">dfs</span>(i + <span class="number">1</span>, pri[i] + cost);<span class="comment">// 用i</span></span><br><span class="line">	<span class="built_in">dfs</span>(i + <span class="number">1</span>, cost);<span class="comment">// 不用i</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; x;</span><br><span class="line">	<span class="type">int</span> total = <span class="number">0</span>;</span><br><span class="line">	pri = <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; pri[i];</span><br><span class="line">		total += pri[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">dfs</span>(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">	cout &lt;&lt; ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="DP-1"><a href="#DP-1" class="headerlink" title="DP"></a>DP</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line">vector&lt;<span class="type">int</span>&gt;pri;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="type">int</span> n, x;</span><br><span class="line">	cin &gt;&gt; n &gt;&gt; x;</span><br><span class="line">	<span class="type">int</span> total = <span class="number">0</span>;</span><br><span class="line">	pri = <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(n+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		cin &gt;&gt; pri[i];</span><br><span class="line">		total += pri[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="type">int</span> y = total - x;</span><br><span class="line">	<span class="type">int</span> ans = <span class="number">-1</span>;</span><br><span class="line">	vector&lt;vector&lt;<span class="type">int</span>&gt;&gt; <span class="built_in">dp</span>(n + <span class="number">1</span>, <span class="built_in">vector</span>&lt;<span class="type">int</span>&gt;(y + <span class="number">1</span>, <span class="number">0</span>));</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j &lt;= y; j++) &#123;</span><br><span class="line">			<span class="keyword">if</span> (j &gt;= pri[i]) &#123;</span><br><span class="line">				dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j - pri[i]]+pri[i], dp[i - <span class="number">1</span>][j]);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	cout &lt;&lt; total-dp[n][y];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/24/%E3%80%90CSP%E3%80%91202212-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1183,118 +1280,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-11/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/uploads/image.jpg">
-      <meta itemprop="name" content="Kevin.">
-      <meta itemprop="description" content="等你说，等我说，一等就是一个宇宙。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/11/%E3%80%90%E6%97%A5%E5%B8%B8%E3%80%912023-11-11/" class="post-title-link" itemprop="url">【日常】2023-11-11</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-11 09:19:18" itemprop="dateCreated datePublished" datetime="2023-11-11T09:19:18+08:00">2023-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 22:40:45" itemprop="dateModified" datetime="2023-11-16T22:40:45+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E5%B8%B8/" itemprop="url" rel="index"><span itemprop="name">日常</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>783</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="关于地产"><a href="#关于地产" class="headerlink" title="关于地产"></a>关于地产</h2><h3 id="城投债"><a href="#城投债" class="headerlink" title="城投债"></a>城投债</h3><p>城市投资债务，是由政府通过政府直属的第三方机构向民众发行的债务。政府收集到的资金用于城市建设。</p>
-<p>原因：国家无法直接大量地向政府拨款。</p>
-<h3 id="地产"><a href="#地产" class="headerlink" title="地产"></a>地产</h3><p>事实：</p>
-<ol>
-<li>一手房通常用于投资。</li>
-<li>政府用于还清债务的资金的主要来源是一手房所产生的税收。</li>
-<li>一手房的投资资金大多来源于二手房出售获取的利润。</li>
-<li>二手房大多数在平民手中。</li>
-</ol>
-<p>$1+2\Rightarrow a.政府需要保障一手房的成交量。$</p>
-<p>$4\Rightarrow b.政府无法通过降价来刺激二手房成交量。$</p>
-<p>$2+a\Rightarrow 一手房的成交量无法通过降价来保证。$</p>
-<h2 id="初窥物流系统"><a href="#初窥物流系统" class="headerlink" title="初窥物流系统"></a>初窥物流系统</h2><p><strong>仅对仓储部分进行介绍</strong></p>
-<h3 id="仓储视角的“发货”"><a href="#仓储视角的“发货”" class="headerlink" title="仓储视角的“发货”"></a>仓储视角的“发货”</h3><ol>
-<li>商家收到订单，向仓库发送指令，形如<code>(userinfo,goods,...)</code></li>
-<li>仓库根据该指令进行拣货，并进行封装，打包成快递公司能寄出的样子。</li>
-<li>信息生成：仓库从快递公司购买快递单号，然后将用户信息与快递单号交付给快递公司，生成条形码</li>
-<li>快递公司按批收揽。</li>
-<li>快递公司发货。</li>
-</ol>
-<h2 id="“男友力”照片"><a href="#“男友力”照片" class="headerlink" title="“男友力”照片"></a>“男友力”照片</h2><p>在酒店里，H提出要拍一些有意思的照片，其中有一张让我印象深刻：男生直立，女生右膝横放在男生的右肩上，上肢则搭在男生的左肩上。整体来看就是男生把女生扛在双肩上，男生不动如山，女生优雅从容。</p>
-<p>然而我们拍的时候并不顺利——H的左腿在空中摆动、无处安放，上肢紧紧抱着我的脖子和左肩，小脑袋根本抬不起来。过了几秒，大概她挣扎累了，抬头看了看镜子，我们的目光才在镜中交汇。如果当时有一台相机，定格住的画面中最显眼的大概就是她大喊大叫时的搞笑而又狰狞的面容和我放肆的笑脸。</p>
-<p>“起初是担心你举不动我，原来更值得担心的是我能不能在你身上撑住。”H说。</p>
-<p>后来，我们又试了一个姿势：她跪坐在小腿上，我将她的小腿托举起来，知道我们的眼睛在一条水平线上。毫无疑问，最终的成果并没有原po主从容不迫的感觉——她直接贴在了我的身上，像个小朋友一样哇哇乱叫。</p>
-<p>没拍成，但是H真的很可爱。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1366,7 +1351,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
